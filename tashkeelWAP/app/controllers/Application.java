@@ -11,22 +11,29 @@ import views.html.*;
 public class Application extends Controller {
 
 	public static Result index() {
-	   return ok(index.render(form(Login.class)));
+	      return redirect(
+            routes.Application.login()
+        );
 	}
 
+  public static Result login() {
+        return ok(
+            login.render(Form.form(Login.class))
+        );
+    }
+
 public static Result authenticate() {
-    Form<Login> loginForm = form(Login.class).bindFromRequest();
+    Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
     if (loginForm.hasErrors()) {
-        return badRequest(index.render(loginForm));
+        return badRequest(login.render(loginForm));
     } else {
         session().clear();
-        session("name", loginForm.get().name);
+        session("email", loginForm.get().email);
         return redirect(
-            routes.Application.hinter()
+            routes.Application.index()
         );
     }
 }
-
 
     public static Result hinter() {//int id
     	//Hinter hinter = Hinter.findById(id);
@@ -41,16 +48,15 @@ public static Result authenticate() {
 
 public static class Login {
 
-    public String name;
-    //public String password;
+    public String email;
+    public String password;
 
-    public String validate() {
-    if (Hinter.authenticate(name) == null) {
+public String validate() {
+    if (Hinter.authenticate(email, password) == null) {
       return "Invalid user or password";
     }
     return null;
 }
-
 }
 
 }
