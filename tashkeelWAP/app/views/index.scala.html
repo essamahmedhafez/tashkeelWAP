@@ -1,7 +1,14 @@
-@(message: String)
+@(form: Form[Application.Login])
 
-@main("Welcome to Play") {
+	
+	@helper.form(routes.Application.authenticate) {
+   <div class="jumbotron">
+		
+  		<input id="name" name="name" type="text" class="form-control" placeholder="Username">
+		
+		<button id="hinter" type="submit" class="btn btn-primary">Hinter</button>
+		<button id = "describer" type="" class="btn btn-primary">Describer</button>
 
-    @play20.welcome(message, style = "Java")
 
+    </div>
 }

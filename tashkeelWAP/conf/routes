@@ -5,6 +5,8 @@
 # Home page
 GET     /                           controllers.Application.index()
 
+POST    /                      controllers.Application.authenticate()
+
 # Hinter
 GET     /hinter                  controllers.Application.hinter()
 
