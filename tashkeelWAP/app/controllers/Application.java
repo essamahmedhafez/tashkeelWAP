@@ -33,18 +33,19 @@ public static Result authenticate() {
         session("email", loginForm.get().email);
         String email = loginForm.get().email;
         Hinter temp = Hinter.find.byId(email);
+        //Words word = Words.find.byId(1);
         Integer score = temp.score;
         //return redirect(
         //    routes.Application.hinter()
        // );
-        return ok(hinter.render(email,score));
+        return ok(hinter.render(email,score,""));
     }
 }
 
-    public static Result hinter(String email, Integer score) {//int id
+    public static Result hinter(String email, Integer score, String image) {//int id
     	//Hinter hinter = Hinter.findById(id);
 
-    	return ok(hinter.render(email,score));
+    	return ok(hinter.render(email,score,image));
   	}
 
   	
