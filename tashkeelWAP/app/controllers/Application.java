@@ -4,16 +4,14 @@ import play.*;
 import play.mvc.*;
 import play.data.*;
 import static play.data.Form.*;
-
 import models.*;
 import views.html.*;
+import play.db.*;
 
 public class Application extends Controller {
-
+	static Form<Login> loginForm = Form.form(Login.class);
 	public static Result index() {
-	      return redirect(
-            routes.Application.login()
-        );
+	    return redirect(routes.Application.login());
 	}
 
   public static Result login() {
@@ -23,21 +21,24 @@ public class Application extends Controller {
     }
 
 public static Result authenticate() {
-    Form<Login> loginForm = Form.form(Login.class).bindFromRequest();
-    if (loginForm.hasErrors()) {
+
+	Form<Login> loginForm2 = loginForm.bindFromRequest();
+    if (loginForm2.hasErrors()) {
         return badRequest(login.render(loginForm));
     } else {
         session().clear();
         session("email", loginForm.get().email);
-        return redirect(
-            routes.Application.index()
-        );
+        String e = loginForm.get().email;
+        //return redirect(
+        //    routes.Application.hinter()
+       // );
+        return ok(hinter.render(e));
     }
 }
 
-    public static Result hinter() {//int id
+    public static Result hinter(String email) {//int id
     	//Hinter hinter = Hinter.findById(id);
-    	return ok("","");
+    	return ok();
   	}
 
   	
