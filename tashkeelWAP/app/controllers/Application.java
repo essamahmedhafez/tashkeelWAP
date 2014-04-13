@@ -9,8 +9,11 @@ import views.html.*;
 import play.db.*;
 
 public class Application extends Controller {
+
 	static Form<Login> loginForm = Form.form(Login.class);
 	public static Result index() {
+		Hinter h = new Hinter("b@a.com","a","a");
+		//h.save();
 	    return redirect(routes.Application.login());
 	}
 
@@ -28,17 +31,20 @@ public static Result authenticate() {
     } else {
         session().clear();
         session("email", loginForm.get().email);
-        String e = loginForm.get().email;
+        String email = loginForm.get().email;
+        Hinter temp = Hinter.find.byId(email);
+        Integer score = temp.score;
         //return redirect(
         //    routes.Application.hinter()
        // );
-        return ok(hinter.render(e));
+        return ok(hinter.render(email,score));
     }
 }
 
-    public static Result hinter(String email) {//int id
+    public static Result hinter(String email, Integer score) {//int id
     	//Hinter hinter = Hinter.findById(id);
-    	return ok();
+
+    	return ok(hinter.render(email,score));
   	}
 
   	
