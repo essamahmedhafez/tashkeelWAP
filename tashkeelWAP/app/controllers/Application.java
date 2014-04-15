@@ -12,7 +12,7 @@ import play.api.*;
 public class Application extends Controller {
 
 	
-	static Hinter h = new Hinter("d@a.com","a","a");
+	static User h = new User("d@a.com","a","a");
   static Words w = new Words("مدرسه","images/ImageSample.png");
   public static Result index() {
       //return redirect(routes.Application.login());
@@ -39,25 +39,19 @@ public static Result authenticate() {
         session("email", requestData.get("email"));
         String email = requestData.get("email");
         String password = requestData.get("password");
-        Hinter temp = Hinter.find.byId(email);
+        User temp = User.find.byId(email);
         Words word = Words.find.byId(1);
         Integer score = temp.score;
         String link = word.imageLink;
-        return ok(hinter.render(email,score,link));
+        return ok(user.render(email,score,link));
     }
 }
 
-    public static Result hinter(String email, Integer score, String image) {//int id
-    	//Hinter hinter = Hinter.findById(id);
+    public static Result user(String email, Integer score, String image) {//int id
+    	//User user = User.findById(id);
 
-    	return ok(hinter.render(email,score,image));
+    	return ok(user.render(email,score,image));
   	}
-  	
-  	public static Result solver(String email, Integer score, String image){
-  		return ok(solver.render(email,socre,image));
-  	}
-
-  	
   	
   	public static void firstHelp() {
         
@@ -69,7 +63,7 @@ public static class Login {
     public String password;
 
 public String validate() {
-    if (Hinter.authenticate(email, password) == null) {
+    if (User.authenticate(email, password) == null) {
       return "Invalid user or password";
     }
     return null;

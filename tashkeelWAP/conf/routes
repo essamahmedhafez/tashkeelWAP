@@ -5,8 +5,8 @@
 # Home page
 GET     /                           controllers.Application.index()
 
-# Hinter
-GET     /hinter/:email/:score/:imageLink   controllers.Application.hinter(email: String, score: Integer, imageLink: String)
+# user
+GET     /user/:email/:score/:imageLink   controllers.Application.user(email: String, score: Integer, imageLink: String)
 
 
 # Map static resources from the /public folder to the /assets URL path
