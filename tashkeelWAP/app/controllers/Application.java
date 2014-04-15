@@ -7,14 +7,20 @@ import static play.data.Form.*;
 import models.*;
 import views.html.*;
 import play.db.*;
+import play.api.*;
 
 public class Application extends Controller {
 
-	static Form<Login> loginForm = Form.form(Login.class);
-	public static Result index() {
-		Hinter h = new Hinter("b@a.com","a","a");
-		//h.save();
-	    return redirect(routes.Application.login());
+	
+	static Hinter h = new Hinter("d@a.com","a","a");
+  static Words w = new Words("مدرسه","images/ImageSample.png");
+  public static Result index() {
+      //return redirect(routes.Application.login());
+     // h.save();
+     // w.save();
+       return ok(
+            login.render(Form.form(Login.class))
+        );
 	}
 
   public static Result login() {
@@ -23,23 +29,28 @@ public class Application extends Controller {
         );
     }
 
-public static Result authenticate() {
 
-	Form<Login> loginForm2 = loginForm.bindFromRequest();
-    if (loginForm2.hasErrors()) {
+public static Result authenticate() {
+  DynamicForm requestData = Form.form().bindFromRequest();
+    String email = requestData.get("email");
+    String password = requestData.get("password");
+
+
+    Hinter temp = Hinter.find.byId(email);
+    Words word = Words.find.byId(1);
+    Integer score = temp.score;
+    String link = word.imageLink;
+    return ok(hinter.render(email,score,link));
+
+   /* if (loginForm2.hasErrors()) {
         return badRequest(login.render(loginForm));
     } else {
         session().clear();
         session("email", loginForm.get().email);
-        String email = loginForm.get().email;
-        Hinter temp = Hinter.find.byId(email);
-        //Words word = Words.find.byId(1);
-        Integer score = temp.score;
         //return redirect(
         //    routes.Application.hinter()
        // );
-        return ok(hinter.render(email,score,""));
-    }
+    }*/
 }
 
     public static Result hinter(String email, Integer score, String image) {//int id
@@ -63,7 +74,7 @@ public String validate() {
     if (Hinter.authenticate(email, password) == null) {
       return "Invalid user or password";
     }
-    return null;
+    return email;
 }
 }
 
