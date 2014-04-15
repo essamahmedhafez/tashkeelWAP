@@ -47,6 +47,10 @@ public static Result authenticate() {
 
     	return ok(hinter.render(email,score,image));
   	}
+  	
+  	public static Result solver(String email, Integer score, String image){
+  		return ok(solver.render(email,socre,image));
+  	}
 
   	
   	
