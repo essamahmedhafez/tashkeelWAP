@@ -32,25 +32,19 @@ public class Application extends Controller {
 
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
-    String email = requestData.get("email");
-    String password = requestData.get("password");
-
-
-    Hinter temp = Hinter.find.byId(email);
-    Words word = Words.find.byId(1);
-    Integer score = temp.score;
-    String link = word.imageLink;
-    return ok(hinter.render(email,score,link));
-
-   /* if (loginForm2.hasErrors()) {
-        return badRequest(login.render(loginForm));
+   if (requestData.hasErrors()) {
+        return badRequest();//login.render(loginForm)
     } else {
         session().clear();
-        session("email", loginForm.get().email);
-        //return redirect(
-        //    routes.Application.hinter()
-       // );
-    }*/
+        session("email", requestData.get("email"));
+        String email = requestData.get("email");
+        String password = requestData.get("password");
+        Hinter temp = Hinter.find.byId(email);
+        Words word = Words.find.byId(1);
+        Integer score = temp.score;
+        String link = word.imageLink;
+        return ok(hinter.render(email,score,link));
+    }
 }
 
     public static Result hinter(String email, Integer score, String image) {//int id
@@ -74,7 +68,7 @@ public String validate() {
     if (Hinter.authenticate(email, password) == null) {
       return "Invalid user or password";
     }
-    return email;
+    return null;
 }
 }
 
