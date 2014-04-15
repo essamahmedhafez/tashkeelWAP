@@ -1,0 +1,104 @@
+@(email: String, score: Integer, imageLink: String)
+
+@main("Hinter") {
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+		
+		<ul class="nav nav-pills nav-stacked">
+		  <li class="active">
+		    <a href="#">
+		      <span class="badge pull-left">@score</span>
+		       &nbsp;: عدد النقاط
+		    </a>
+		  </li>
+		</ul>
+
+        </ul>
+        <h3 class="text-primary">Hinter @email</h3>
+      </div>
+
+      <div class="jumbotron">
+        
+        <h1>ساعد صديقك في حل لغز التشكيل </h1>
+        <h5>@imageLink</h5>
+    <img src=" @routes.Assets.at("images/ImageSample.png")" alt="" class="img-rounded">
+
+		<p>
+        <p><a class="btn btn-lg btn-info" href="#" role="button" data-toggle="modal" data-target="#myModal">ارسل المساعده الأولى </a></p>
+        <p><a class="btn btn-lg btn-warning" href="#" role="button" data-toggle="modal" data-target="#myModal2">ارسل المساعده الثانيه </a></p>
+        <p><a class="btn btn-lg btn-danger" href="#" role="button" data-toggle="modal" data-target="#myModal3">ارسل المساعده الثالثه </a></p>
+
+        <!-- Modal -->
+      <form action="@{Application.firstHelp()}" method="POST">
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 class="modal-title" id="myModalLabel">المساعده الأولى </h3>
+            </div>
+            <div class="modal-body">
+              <h3>إختر العلامات التي سوف يحتاجها</h3>
+                <select multiple class="form-control">
+                  <option> ُ </option>
+                  <option> َ </option>
+                  <option> ِ </option>
+                  <option> ِ </option>
+                </select>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </form> 
+
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 class="modal-title" id="myModalLabel">المساعده الثانيه</h3>
+            </div>
+            <div class="modal-body">
+              <h3>إكتب لصديقك حيحتاج كام علامه </h3>
+              <input type="text" class="form-control" placeholder="">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 class="modal-title" id="myModalLabel">المساعده الثالثه</h3>
+            </div>
+            <div class="modal-body">
+              <h3>Franco-إكتب الكلمه بال</h3>
+              <input type="text" class="form-control" placeholder="Franco Word">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="footer">
+        <p>&copy; Crowdsourcing Slim 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+  </body>
+}

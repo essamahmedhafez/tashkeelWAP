@@ -1,0 +1,14 @@
+@(form: Form[Application.Login])
+@import helper.twitterBootstrap._
+<html>
+    <body> 
+    @helper.form(action = routes.Application.authenticate()) {
+    @helper.inputText(form("email"))
+    @helper.inputPassword(form("password"))
+
+   <p>
+       <button type="submit">Login</button>
+   </p>
+}
+    </body>
+</html>
