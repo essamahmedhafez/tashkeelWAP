@@ -12,12 +12,12 @@ import play.api.*;
 public class Application extends Controller {
 
 	
-	static User h = new User("d@a.com","a","a");
+	static User h = new User("a@a.com","a","a");
   static Words w = new Words("مدرسه","images/ImageSample.png");
   public static Result index() {
       //return redirect(routes.Application.login());
-     // h.save();
-     // w.save();
+      //h.save();
+      //w.save();
        return ok(
             login.render(Form.form(Login.class))
         );
