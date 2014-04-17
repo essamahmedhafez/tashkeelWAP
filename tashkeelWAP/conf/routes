@@ -15,4 +15,4 @@ GET		/user 					controllers.Application.login()
 
 POST    /user                  controllers.Application.authenticate()
 
-POST	/user					controllers.Application.sendThirdHelp()
+POST	/user/3					controllers.Application.sendThirdHelp()

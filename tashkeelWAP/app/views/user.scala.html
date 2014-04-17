@@ -1,4 +1,4 @@
-@(email: String, score: Integer, word: Integer)
+@(email: String, score: Integer, word: Integer, thirdHelpForm:Form[Words])
 
 @main("User") {
   <body>
@@ -74,6 +74,7 @@
           </div>
         </div>
       </div>
+      @helper.form(action = routes.Application.sendThirdHelp()) {
             <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -83,15 +84,17 @@
             </div>
             <div class="modal-body">
               <h3>Franco-إكتب الكلمه بال</h3>
-              <input type="text" class="form-control" placeholder="Franco Word">
+              @helper.input(thirdHelpForm("franco"), '_label -> "") { (id, name, value, args) =>
+                <input type="text" class="form-control" placeholder="Franco Word" name="@name" id="@id" @toHtmlArgs(args)>
+              }
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary" href="@routes.Application.sendThirdHelp()">Send</button>
+              <button type="submit" class="btn btn-primary">Send</button>
             </div>
           </div>
         </div>
       </div>
-      
+      }
 
       <div class="footer">
         <p>&copy; Crowdsourcing Slim 2014</p>

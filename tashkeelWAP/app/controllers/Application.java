@@ -12,7 +12,7 @@ import play.api.*;
 public class Application extends Controller {
 
 	
-	static User h = new User("b@a.com","a","a");
+	static User h = new User("a@a.com","a","a");
   static Words w = new Words("مدرسه","images/ImageSample.png");
 
   public static Result index() {
@@ -29,27 +29,27 @@ public class Application extends Controller {
 
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
+  //Form<Login> loginForm = form(Login.class).bindFromRequest();
    if (requestData.hasErrors()) {
         return badRequest();//login.render(loginForm)
     } else {
         session().clear();
         session("email", requestData.get("email"));
 
-
-        String email = requestData.get("email");
-        
+        String email = requestData.get("email");     
         String password = requestData.get("password");
+
         User temp = User.find.byId(email);
         Words word = Words.find.byId(1);
         Integer score = temp.score;
         Integer wordID = word.id;
-        return ok(user.render(email,score,wordID));
+        return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 }
 
     public static Result user(String email, Integer score, Integer wordID) {//int id
     	//User user = User.findById(id);
-    	return ok(user.render(email,score,wordID));
+    	return ok(user.render(email,score,wordID,Form.form(Words.class)));
   	}
   	
 
@@ -61,8 +61,10 @@ public static Result authenticate() {
   	public static Result sendThirdHelp() {
       //request().email();
       DynamicForm requestData = Form.form().bindFromRequest();
-      //Form<Task> taskForm = form(Task.class).bindFromRequest();
-      
+      String francoSent = requestData.get("franco");
+      Words word = Words.find.byId(1);
+      word.franco = francoSent;
+      word.save();
       return ok(login.render(Form.form(Login.class)));
     }
 
