@@ -1,4 +1,4 @@
-@(email: String, score: Integer, imageLink: String)
+@(email: String, score: Integer, word: Integer)
 
 @main("User") {
   <body>
@@ -17,14 +17,13 @@
 		</ul>
 
         </ul>
-        <h3 class="text-primary">User @email</h3>
+        <h3 class="text-primary">Hinter @email</h3>
       </div>
 
       <div class="jumbotron">
         
         <h1>ساعد صديقك في حل لغز التشكيل </h1>
-        <h5>@imageLink</h5>
-    <img src=" @routes.Assets.at("images/ImageSample.png")" alt="" class="img-rounded">
+    <img src=" @routes.Assets.at(Words.find.byId(word).imageLink)" alt="" class="img-rounded">
 
 		<p>
         <p><a class="btn btn-lg btn-info" href="#" role="button" data-toggle="modal" data-target="#myModal">ارسل المساعده الأولى </a></p>
@@ -75,7 +74,6 @@
           </div>
         </div>
       </div>
-
             <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -88,12 +86,12 @@
               <input type="text" class="form-control" placeholder="Franco Word">
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Send</button>
+              <button type="submit" class="btn btn-primary" href="@routes.Application.sendThirdHelp()">Send</button>
             </div>
           </div>
         </div>
       </div>
-
+      
 
       <div class="footer">
         <p>&copy; Crowdsourcing Slim 2014</p>

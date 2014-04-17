@@ -2,7 +2,7 @@
 @import helper.twitterBootstrap._
 <html>
     <body> 
-    @helper.form(action = routes.Application.authenticate()) {
+    @helper.form(routes.Application.authenticate()) {
     @helper.inputText(form("email"))
     @helper.inputPassword(form("password"))
 

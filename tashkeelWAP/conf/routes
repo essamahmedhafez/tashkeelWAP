@@ -5,13 +5,14 @@
 # Home page
 GET     /                           controllers.Application.index()
 
-# user
-GET     /user/:email/:score/:imageLink   controllers.Application.user(email: String, score: Integer, imageLink: String)
-
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-
 GET     /login                  controllers.Application.login()
-POST    /login                  controllers.Application.authenticate()
+
+GET		/user 					controllers.Application.login()	
+
+POST    /user                  controllers.Application.authenticate()
+
+POST	/user					controllers.Application.sendThirdHelp()
