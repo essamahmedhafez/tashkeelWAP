@@ -57,21 +57,21 @@ public static Result authenticate() {
       return ok();
     }
 
-    public static Result sendSecondHelp() {
+	public static Result sendSecondHelp() {
       DynamicForm requestData = Form.form().bindFromRequest();
       String nSigns = requestData.get("noOfSigns");
-      Words word = Words.find.byId(1);
-      word.noOfSigns = Integer.parseInt(nSigns);
-      word.save();
+      Digitization digitization = Digitization.find.byId(1);
+      digitization.noOfSigns = Integer.parseInt(nSigns);
+      digitization.save();
       return ok(login.render(Form.form(Login.class)));
     }
 
   	public static Result sendThirdHelp() {
       DynamicForm requestData = Form.form().bindFromRequest();
       String francoSent = requestData.get("franco");
-      Words word = Words.find.byId(1);
-      word.franco = francoSent;
-      word.save();
+      Digitization digitization = Digitization.find.byId(1);
+      digitization.franco = francoSent;
+      digitization.save();
       return ok(login.render(Form.form(Login.class)));
     }
 
