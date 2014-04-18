@@ -3,6 +3,7 @@ package models;
 import javax.persistence.*;
 import play.db.ebean.*;
 import com.avaje.ebean.*;
+import play.db.ebean.Model.Finder;
 
 @Entity
 public class Words extends Model{
@@ -21,8 +22,7 @@ public class Words extends Model{
     	this.imageLink = imageLink;
     }
 
-   public static Finder<Integer,Words> find = new Finder<Integer,Words>(
-        Integer.class, Words.class
-    ); 
+       public static Finder<Integer,Words> find = new Finder<Integer,Words>(Integer.class, Words.class); 
+
 
 }

@@ -57,9 +57,16 @@ public static Result authenticate() {
       return ok();
     }
 
+    public static Result sendSecondHelp() {
+      DynamicForm requestData = Form.form().bindFromRequest();
+      String nSigns = requestData.get("noOfSigns");
+      Words word = Words.find.byId(1);
+      word.noOfSigns = Integer.parseInt(nSigns);
+      word.save();
+      return ok(login.render(Form.form(Login.class)));
+    }
 
   	public static Result sendThirdHelp() {
-      //request().email();
       DynamicForm requestData = Form.form().bindFromRequest();
       String francoSent = requestData.get("franco");
       Words word = Words.find.byId(1);
