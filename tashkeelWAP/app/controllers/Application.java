@@ -30,6 +30,14 @@ public class Application extends Controller {
     }
 
 
+    public static Result saveWord(){
+      return ok(view.html.solver.render());
+    }
+    public static Result login2(){
+      return ok(views.html.solver.render());
+    }
+
+
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
    if (requestData.hasErrors()) {

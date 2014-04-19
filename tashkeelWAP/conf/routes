@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           controllers.Application.login2()
 
 # user
 GET     /user/:email/:score/:imageLink   controllers.Application.user(email: String, score: Integer, imageLink: String)
