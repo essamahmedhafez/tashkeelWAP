@@ -17,7 +17,7 @@ public class User extends Model{
       this.email = email;
       this.name = name;
       this.password = password;
-      score = 0;
+      this.score = 0;
     }
 
 
