@@ -1,14 +1,32 @@
 @(form: Form[Application.Login])
 @import helper.twitterBootstrap._
-<html>
-    <body> 
-    @helper.form(routes.Application.authenticate()) {
-    @helper.inputText(form("email"))
-    @helper.inputPassword(form("password"))
+@main("Login Page"){
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+<div class="text-center">
+	<h1 class="text-primary"> تـَشكِيل</h1>	
+</div>
+</head>
+
+    <body> 
+    <div class="container">
+    <h2 class="text-muted">Login page</h2>
+    <div class="span8">
+    	<div class="header">
+    	
+
+
+    @helper.form(routes.Application.authenticate()) {
+    @helper.inputText(form("Email"))
+    @helper.inputPassword(form("Password"))
+
+		</div>
    <p>
        <button type="submit">Login</button>
    </p>
 }
     </body>
 </html>
+}

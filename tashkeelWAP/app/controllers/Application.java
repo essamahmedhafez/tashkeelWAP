@@ -26,6 +26,15 @@ public class Application extends Controller {
         return ok(login.render(Form.form(Login.class)));
     }
 
+/*
+    public static Result saveWord(){
+      return ok(view.html.solver.render());
+    }*/
+    public static Result login2(){
+      return ok(views.html.solver.render("email",123,2));
+    }
+
+
 
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
