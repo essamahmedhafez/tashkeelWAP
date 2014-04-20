@@ -17,8 +17,8 @@ public class Application extends Controller {
 
   public static Result index() {
       //return redirect(routes.Application.login());
-      //h.save();
-      //w.save();
+      h.save();
+      w.save();
        return ok(login.render(Form.form(Login.class)));
 	}
 
@@ -40,7 +40,7 @@ public static Result authenticate() {
         String password = requestData.get("password");
 
         User temp = User.find.byId(email);
-        Words word = Words.find.byId(1);
+        Words word = Words.find.byId(2);
         Integer score = temp.score;
         Integer wordID = word.id;
         return ok(user.render(email,score,wordID,Form.form(Words.class)));
