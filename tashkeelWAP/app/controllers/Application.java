@@ -12,20 +12,37 @@ import play.api.*;
 public class Application extends Controller {
 
 	
-	static User h = new User("a@a.com","a","a");
-  static Words w = new Words("مدرسه","images/ImageSample.png");
-
+	//static User h = new User("a@a.com","a","a");
+  //static Words w = new Words("مدرسه","images/ImageSample.png");
+  static boolean init = false;
   public static Result index() {
       //return redirect(routes.Application.login());
-      h.save();
-      w.save();
-       return ok(login.render(Form.form(Login.class)));
+
+      return ok(login.render(Form.form(Login.class)));
 	}
 
   public static Result login() {
-        return ok(login.render(Form.form(Login.class)));
+      //h.save();
+      //w.save();
+      //initializeDB();
+
+      return ok(login.render(Form.form(Login.class)));
     }
 
+
+    public static void initializeDB(){
+      if(!init){
+        for(int i=1;i<=55;i++){
+          Words w = new Words (i,"","images/"+i+".jpg");
+          w.save();
+          Digitization d = new Digitization(i,w.id,w.word);
+          d.save();
+          User h = new User(i+"@a.com",i+"",i+"");
+          h.save();
+        }
+        init = true;
+       }
+    }
 /*
     public static Result saveWord(){
       return ok(view.html.solver.render());

@@ -9,16 +9,17 @@ import play.db.ebean.Model.Finder;
 public class Digitization extends Model{
     
     @Id
-	public int sessionNum = 1;
+	public int sessionNum = 0;
     public String digitization;
+    //@Required
     public int wordID;
     public String franco;
     public int noOfSigns;
     public int hinterID;
     public int solverID;
 
-    public Digitization(int wordID, String digitization){
-    	this.sessionNum++;
+    public Digitization(int sessioNum,int wordID, String digitization){
+    	this.sessionNum = sessionNum;
         this.wordID = wordID;
     	this.digitization = digitization;
     	// this.franco = franco;

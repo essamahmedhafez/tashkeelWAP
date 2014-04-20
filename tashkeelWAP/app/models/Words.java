@@ -9,14 +9,14 @@ import play.db.ebean.Model.Finder;
 public class Words extends Model{
     
     @Id
-	public int id = 1;
+	public int id = 0;
     public String word;
     public String imageLink;
     public int repetitionNum;
     public String tashkeel;
 
-    public Words(String word, String imageLink){
-    	this.id++;
+    public Words(int id,String word, String imageLink){
+    	this.id = id;
     	this.word = word;
     	this.imageLink = imageLink;
     }
