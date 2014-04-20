@@ -71,7 +71,7 @@ public static Result authenticate() {
         Integer score = temp.score;
         //get word
         List<Words> words = Words.find.all();
-        int randomImage = (int) ((Math.random()*100))%(words.size());
+        int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
         Words word = Words.find.byId(randomImage);
         Integer wordID = word.id;
         return ok(user.render(email,score,wordID,Form.form(Words.class)));
