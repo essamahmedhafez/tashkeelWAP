@@ -1,4 +1,4 @@
-@(email: String, score: Integer, imageLink: String, wordFill:Form[Word])
+@(email: String, score: Integer, word: Integer)
 @import helper._
 @main("Solver") {
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
 
-    <title>Solver</title>
+     
 
     <!-- Custom styles for this template -->
 
@@ -57,14 +57,14 @@
     <ul class="nav nav-pills nav-stacked">
       <li class="active">
         <a href="#">
-          <span class="badge pull-left">42</span>
+          <span class="badge pull-left">@score</span>
            &nbsp;: عدد النقاط
         </a>
       </li>
     </ul>
 
         </ul>
-        <h3 class="text-primary">Solver
+        <h3 class="text-primary">Solver @email
      </div>
 
       <div class="jumbotron">
@@ -73,13 +73,10 @@
     <br><br>  
     <!--<img src="word.png" alt="" class="img-rounded">-->
     <img src=" @routes.Assets.at("images/ImageSample.png")" alt="" class="img-rounded">
+    <p> @word</p>
 
  <h2>أكتب الكلمة أو الجملة الآتية </h2>
-  @form(routes.Application.saveWord()){
-  @inputText(wordFill("Word"))
-  <button type="submit" value="Save word"></button>
-  }
-
+	
     <p></p>
     <br><br>
 
@@ -88,26 +85,33 @@
   <button type="button" class="btn btn-info">
    <img src="@routes.Assets.at("images/tashkeel11.jpg")" alt="" class="img-rounded"> 
   </button> 
+
   <button type="button" class="btn btn-info">
    <img src="@routes.Assets.at("images/tashkeel22.jpg")" alt="" class="img-rounded"> 
   </button>
+
   <button type="button" class="btn btn-info">
    <img src="@routes.Assets.at("images/tashkeel33.jpg")" alt="" class="img-rounded"> 
   </button>  <br>
+
   <button type="button" class="btn btn-info">
   <img src="@routes.Assets.at("images/tashkeel44.jpg")" alt="" class="img-rounded">
   </button> 
+
   <button type="button" class="btn btn-info">
    <img src="@routes.Assets.at("images/tashkeel55.jpg")" alt="" class="img-rounded"> 
   </button>
+
   <button type="button" class="btn btn-info">
    <img src="@routes.Assets.at("images/tashkeel66.jpg")" alt="" class="img-rounded"> 
-  </button>
+  </button> <br>
+
   <button type="button" class="btn btn-info">
    <img src="@routes.Assets.at("images/tashkeel77.jpg")" alt="" class="img-rounded"> 
   </button>
+
   <button type="button" class="btn btn-info">
-   <img src="@routes.Assets.at("images/tashkeel88.jpg")" alt="" class="img-rounded"> 
+   <img src="@routes.Assets.at("images/tashkeel88.png")" alt="" class="img-rounded"> 
   </button>
    <br><br>
   
