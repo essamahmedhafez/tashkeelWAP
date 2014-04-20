@@ -8,6 +8,8 @@ import models.*;
 import views.html.*;
 import play.db.*;
 import play.api.*;
+import java.util.*;
+import javax.persistence.*;
 
 public class Application extends Controller {
 
@@ -64,10 +66,13 @@ public static Result authenticate() {
 
         String email = requestData.get("email");     
         String password = requestData.get("password");
-
+        //get user
         User temp = User.find.byId(email);
-        Words word = Words.find.byId(2);
         Integer score = temp.score;
+        //get word
+        List<Words> words = Words.find.all();
+        int randomImage = (int) ((Math.random()*100))%(words.size());
+        Words word = Words.find.byId(randomImage);
         Integer wordID = word.id;
         return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
@@ -83,22 +88,22 @@ public static Result authenticate() {
       return ok();
     }
 
-	public static Result sendSecondHelp() {
+	public static Result sendSecondHelp(String email, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
       String nSigns = requestData.get("noOfSigns");
-      Digitization digitization = Digitization.find.byId(1);
+      Digitization digitization = Digitization.find.byId(wordID);
       digitization.noOfSigns = Integer.parseInt(nSigns);
       digitization.save();
-      return ok(login.render(Form.form(Login.class)));
+      return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 
-  	public static Result sendThirdHelp() {
+  	public static Result sendThirdHelp(String email, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
       String francoSent = requestData.get("franco");
-      Digitization digitization = Digitization.find.byId(1);
+      Digitization digitization = Digitization.find.byId(wordID);
       digitization.franco = francoSent;
       digitization.save();
-      return ok(login.render(Form.form(Login.class)));
+      return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 
 public static class Login {

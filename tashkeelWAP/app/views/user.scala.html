@@ -58,7 +58,7 @@
         </div>
       </div>
       </form> 
-        @helper.form(action = routes.Application.sendSecondHelp()) {
+        @helper.form(action = routes.Application.sendSecondHelp(email,score,word)) {
             <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -79,7 +79,7 @@
         </div>
       </div>
     }
-      @helper.form(action = routes.Application.sendThirdHelp()) {
+      @helper.form(action = routes.Application.sendThirdHelp(email,score,word)) {
             <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
