@@ -1,4 +1,4 @@
-@(email: String, score: Integer, word: Integer)
+@(email: String, score: Integer, word: String)
 @import helper._
 @main("Solver") {
 <!DOCTYPE html>
@@ -40,15 +40,20 @@
        
     <br><br>  
     <!--<img src="word.png" alt="" class="img-rounded">-->
-    <img src=" @routes.Assets.at("images/ImageSample.png")" alt="" class="img-rounded">
-    <p> @word</p>
+   <!-- <img src=" @routes.Assets.at("images/ImageSample.png")" alt="" class="img-rounded">-->
+    
 
  <h2>أكتب الكلمة أو الجملة الآتية </h2>
 	
+	<p> @word </p>
     <p></p>
     <br><br>
 
   <p> إختر التشكيل المناسب لكل حرف بعد كتابته </p>
+	
+
+
+
   
   <button type="button" class="btn btn-info">
    <img src="@routes.Assets.at("images/tashkeel11.jpg")" alt="" class="img-rounded"> 

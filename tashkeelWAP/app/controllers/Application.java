@@ -17,6 +17,12 @@ public class Application extends Controller {
 	//static User h = new User("a@a.com","a","a");
   //static Words w = new Words("مدرسه","images/ImageSample.png");
   static boolean init = false;
+  static String email = "";
+  static Words wordStatic = null;
+  static Integer score = 0;
+  static boolean solverOrHinter = false;//Solver = true, Hinter = false;
+
+
   public static Result index() {
       //return redirect(routes.Application.login());
 
@@ -45,14 +51,6 @@ public class Application extends Controller {
         init = true;
        }
     }
-/*
-    public static Result saveWord(){
-      return ok(view.html.solver.render());
-    }*/
-    public static Result login2(){
-      return ok(views.html.solver.render("email",123,2));
-    }
-
 
 
 public static Result authenticate() {
@@ -64,19 +62,33 @@ public static Result authenticate() {
         session().clear();
         session("email", requestData.get("email"));
 
-        String email = requestData.get("email");     
+        String email = requestData.get("email"); 
+        //for testing reasons
+        this.email = email;    
         String password = requestData.get("password");
         //get user
         User temp = User.find.byId(email);
+
         Integer score = temp.score;
+        this.score = score;
         //get word
         List<Words> words = Words.find.all();
         int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
         Words word = Words.find.byId(randomImage);
+        //for testing reasons
+        this.wordStatic = word;
         Integer wordID = word.id;
         return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 }
+    
+    public static Result solver(){
+      //List<Words> = allWords = Words.find.all();
+     // int randomWordInt = (int) ((Math.random()*100))%(allWords.size());
+      Words wordString = this.wordStatic;
+      String theWord = wordString.word;
+      return ok(views.html.solver.render(this.email,this.score,theWord));
+    }
 
     public static Result user(String email, Integer score, Integer wordID) {//int id
     	//User user = User.findById(id);
