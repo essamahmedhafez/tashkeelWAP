@@ -31,7 +31,7 @@
         <p><a class="btn btn-lg btn-danger" href="#" role="button" data-toggle="modal" data-target="#myModal3">ارسل المساعده الثالثه </a></p>
 
         <!-- Modal -->
-      <form action="@{Application.firstHelp()}" method="POST">
+      @helper.form(action = routes.Application.sendFirstHelp(email,score,word)) {
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -41,32 +41,65 @@
             </div>
             <div class="modal-body">
               <h3>إختر العلامات التي سوف يحتاجها</h3>
-            <div style="width:50px">
-              <label class="checkbox">
-              <input type="checkbox" id="inlineCheckbox1" value="option1">
-              <img src="@routes.Assets.at("images/tashkeel11.jpg")" alt="" class="img-rounded"></label>
-              <label class="checkbox">
-              <input type="checkbox" id="inlineCheckbox2" value="option2"><img src="@routes.Assets.at("images/tashkeel22.jpg")" alt="" class="img-rounded"></label>
-              <label class="checkbox">
-              <input type="checkbox" id="inlineCheckbox3" value="option3"><img src="@routes.Assets.at("images/tashkeel33.jpg")" alt="" class="img-rounded"></label>
-              <label class="checkbox">
-              <input type="checkbox" id="inlineCheckbox4" value="option4"><img src="@routes.Assets.at("images/tashkeel44.jpg")" alt="" class="img-rounded"></label>
-              <label class="checkbox">
-              <input type="checkbox" id="inlineCheckbox5" value="option5"><img src="@routes.Assets.at("images/tashkeel55.jpg")" alt="" class="img-rounded"></label>
-              <label class="checkbox">
-              <input type="checkbox" id="inlineCheckbox6" value="option6"><img src="@routes.Assets.at("images/tashkeel66.jpg")" alt="" class="img-rounded"></label>
-              <label class="checkbox">
-              <input type="checkbox" id="inlineCheckbox7" value="option7"><img src="@routes.Assets.at("images/tashkeel77.jpg")" alt="" class="img-rounded"></label>
-              <label class="checkbox">
-              <input type="checkbox" id="inlineCheckbox8" value="option8"><img src="@routes.Assets.at("images/tashkeel88.png")" alt="" class="img-rounded"></label>
+            <div style="width:100px">
+             @helper.input(helpForm("Checkbox1"), '_label -> "") { (id, name, value, args) =>
+                <label class="checkbox-inline">
+                <input type="checkbox" class="form-control" value="option1" name="@name" id="@id" @toHtmlArgs(args)>
+                <img src="@routes.Assets.at("images/tashkeel11.jpg")" alt="" class="img-rounded">
+                </label>
+              }
+             @helper.input(helpForm("Checkbox2"), '_label -> "") { (id, name, value, args) =>
+                <label class="checkbox-inline">
+                <input type="checkbox" class="form-control" value="option2" name="@name" id="@id" @toHtmlArgs(args)>
+                <img src="@routes.Assets.at("images/tashkeel22.jpg")" alt="" class="img-rounded">
+                </label>
+              }
+             @helper.input(helpForm("Checkbox3"), '_label -> "") { (id, name, value, args) =>
+              <label class="checkbox-inline">
+                <input type="checkbox" class="form-control" value="option3" name="@name" id="@id" @toHtmlArgs(args)>
+                <img src="@routes.Assets.at("images/tashkeel33.jpg")" alt="" class="img-rounded">
+                </label>
+              }
+             @helper.input(helpForm("Checkbox4"), '_label -> "") { (id, name, value, args) =>
+               <label class="checkbox-inline">
+                <input type="checkbox" class="form-control" value="option4" name="@name" id="@id" @toHtmlArgs(args)>
+                <img src="@routes.Assets.at("images/tashkeel44.jpg")" alt="" class="img-rounded">
+                </label>
+              }
+             @helper.input(helpForm("Checkbox5"), '_label -> "") { (id, name, value, args) =>
+                <label class="checkbox-inline">
+                <input type="checkbox" class="form-control" value="option5" name="@name" id="@id" @toHtmlArgs(args)>
+                <img src="@routes.Assets.at("images/tashkeel55.jpg")" alt="" class="img-rounded">
+                </label>
+              }
+             @helper.input(helpForm("Checkbox6"), '_label -> "") { (id, name, value, args) =>
+                <label class="checkbox-inline">
+                <input type="checkbox" class="form-control" value="option6" name="@name" id="@id" @toHtmlArgs(args)>
+                <img src="@routes.Assets.at("images/tashkeel66.jpg")" alt="" class="img-rounded">
+                </label>
+              }
+             @helper.input(helpForm("Checkbox7"), '_label -> "") { (id, name, value, args) =>
+                <label class="checkbox-inline">
+                <input type="checkbox" class="form-control" value="option7" name="@name" id="@id" @toHtmlArgs(args)>
+                <img src="@routes.Assets.at("images/tashkeel77.jpg")" alt="" class="img-rounded">
+                </label>
+              }
+             @helper.input(helpForm("Checkbox8"), '_label -> "") { (id, name, value, args) =>
+                <label class="checkbox-inline">
+                <input type="checkbox" class="form-control" value="option8" name="@name" id="@id" @toHtmlArgs(args)>
+                <img src="@routes.Assets.at("images/tashkeel88.png")" alt="" class="img-rounded">
+                </label>
+              }
+
+              
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Send</button>
+              <button type="submit" class="btn btn-primary">Send</button>
             </div>
           </div>
         </div>
       </div>
-      </form> 
+      }
         @helper.form(action = routes.Application.sendSecondHelp(email,score,word)) {
             <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

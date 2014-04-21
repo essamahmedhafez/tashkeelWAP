@@ -84,8 +84,18 @@ public static Result authenticate() {
   	}
   	
 
-    public static Result firstHelp() {
-      return ok();
+    public static Result sendFirstHelp(String email, int score, Integer wordID) {
+      DynamicForm requestData = Form.form().bindFromRequest();
+      String checked1 = requestData.get("Checkbox1");
+      String checked2 = requestData.get("Checkbox2");
+      String checked3 = requestData.get("Checkbox3");
+      String checked4 = requestData.get("Checkbox4");
+      String checked5 = requestData.get("Checkbox5");
+      String checked6 = requestData.get("Checkbox6");
+      String checked7 = requestData.get("Checkbox7");
+      String checked8 = requestData.get("Checkbox8");
+      // if null, not checked, else checked.
+      return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 
 	public static Result sendSecondHelp(String email, int score, Integer wordID) {
