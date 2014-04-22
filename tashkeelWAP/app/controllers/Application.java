@@ -13,8 +13,8 @@ import javax.persistence.*;
 
 public class Application extends Controller {
 
-	
-	//static User h = new User("a@a.com","a","a");
+//static Digitization d = new Digitization(1,2,"menna");	
+//	static User h = new User("a@a.com","a","a");
   //static Words w = new Words("مدرسه","images/ImageSample.png");
   static boolean init = false;
   static String email = "";
@@ -30,9 +30,13 @@ public class Application extends Controller {
 	}
 
   public static Result login() {
-      //h.save();
+       //d.save();
+  	   // h.save();
       //w.save();
       //initializeDB();
+
+List<Words> words = Words.find.all();
+        
 
       return ok(login.render(Form.form(Login.class)));
     }
@@ -45,7 +49,7 @@ public class Application extends Controller {
           w.save();
           Digitization d = new Digitization(i,w.id,w.word);
           d.save();
-          User h = new User(i+"@a.com",i+"",i+"");
+          User h = new User(i,i+"@a.com",i+"",i+"");
           h.save();
         }
         init = true;
@@ -64,31 +68,31 @@ public static Result authenticate() {
 
         String email = requestData.get("email"); 
         //for testing reasons
-        this.email = email;    
+        //this.email = email;    
         String password = requestData.get("password");
         //get user
         User temp = User.find.byId(email);
 
         Integer score = temp.score;
-        this.score = score;
+        //this.score = score;
         //get word
         List<Words> words = Words.find.all();
         int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
         Words word = Words.find.byId(randomImage);
         //for testing reasons
-        this.wordStatic = word;
+        //this.wordStatic = word;
         Integer wordID = word.id;
         return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 }
     
-    public static Result solver(){
+    //public static Result solver(){
       //List<Words> = allWords = Words.find.all();
      // int randomWordInt = (int) ((Math.random()*100))%(allWords.size());
-      Words wordString = this.wordStatic;
-      String theWord = wordString.word;
-      return ok(views.html.solver.render(this.email,this.score,theWord));
-    }
+      //Words wordString = this.wordStatic;
+      //String theWord = wordString.word;
+      //return ok(views.html.solver.render(this.email,this.score,theWord));
+    //}
 
     public static Result user(String email, Integer score, Integer wordID) {//int id
     	//User user = User.findById(id);

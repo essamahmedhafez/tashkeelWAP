@@ -11,14 +11,14 @@ public class Words extends Model{
     @Id
 	public int id = 0;
     public String word;
-    public String imageLink;
-    public int repetitionNum;
+    public String image_link;
+    public int repetition_num;
     public String tashkeel;
 
     public Words(int id,String word, String imageLink){
     	this.id = id;
     	this.word = word;
-    	this.imageLink = imageLink;
+    	this.image_link = image_link;
     }
 
        public static Finder<Integer,Words> find = new Finder<Integer,Words>(Integer.class, Words.class); 

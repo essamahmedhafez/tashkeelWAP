@@ -4,7 +4,7 @@
 # --- !Ups
 
 create table digitization (
-  session_num               integer not null,
+  session_num               integer auto_increment not null,
   digitization              varchar(255),
   word_id                   integer,
   franco                    varchar(255),
@@ -16,6 +16,7 @@ create table digitization (
 
 create table user (
   email                     varchar(255) not null,
+  id                        integer,
   name                      varchar(255),
   password                  varchar(255),
   score                     integer,
@@ -23,7 +24,7 @@ create table user (
 ;
 
 create table words (
-  id                        integer not null,
+  id                        integer auto_increment not null,
   word                      varchar(255),
   image_link                varchar(255),
   repetition_num            integer,
@@ -31,30 +32,18 @@ create table words (
   constraint pk_words primary key (id))
 ;
 
-create sequence digitization_seq;
-
-create sequence user_seq;
-
-create sequence words_seq;
-
 
 
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists digitization;
+drop table digitization;
 
-drop table if exists user;
+drop table user;
 
-drop table if exists words;
+drop table words;
 
-SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists digitization_seq;
-
-drop sequence if exists user_seq;
-
-drop sequence if exists words_seq;
+SET FOREIGN_KEY_CHECKS=1;
 

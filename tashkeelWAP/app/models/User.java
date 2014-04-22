@@ -9,11 +9,13 @@ public class User extends Model{
     
 	 @Id
     public String email;
+    public int id;
     public String name;
     public String password;
     public int score;
     
-    public User(String email, String name, String password) {
+    public User(int id, String email, String name, String password) {
+      this.id = id;
       this.email = email;
       this.name = name;
       this.password = password;
