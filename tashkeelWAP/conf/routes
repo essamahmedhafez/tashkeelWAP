@@ -19,3 +19,4 @@ POST	/user/2					controllers.Application.sendFirstHelp(email:String, score:Integ
 POST	/user/2					controllers.Application.sendSecondHelp(email:String, score:Integer, wordID:Integer)
 POST	/user/3					controllers.Application.sendThirdHelp(email:String, score:Integer, wordID:Integer)
 
+

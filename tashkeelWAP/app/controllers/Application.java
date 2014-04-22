@@ -82,18 +82,25 @@ public static Result authenticate() {
         //for testing reasons
         //this.wordStatic = word;
         Integer wordID = word.id;
+        if(temp.solver == false){
+          temp.solver = true;
         return ok(user.render(email,score,wordID,Form.form(Words.class)));
+      }else{
+        temp.solver = false;
+        return ok(solver.render(email,score,word.word));
+      }
+
     }
 }
-    
-    //public static Result solver(){
-      //List<Words> = allWords = Words.find.all();
-     // int randomWordInt = (int) ((Math.random()*100))%(allWords.size());
-      //Words wordString = this.wordStatic;
-      //String theWord = wordString.word;
-      //return ok(views.html.solver.render(this.email,this.score,theWord));
-    //}
-
+    /*
+    public static Result solver(){
+      List<Words> = allWords = Words.find.all();
+      int randomWordInt = (int) ((Math.random()*100))%(allWords.size());
+      Words wordString = this.wordStatic;
+      String theWord = wordString.word;
+      return ok(views.html.solver.render(this.email,this.score,theWord));
+    }
+*/
     public static Result user(String email, Integer score, Integer wordID) {//int id
     	//User user = User.findById(id);
     	return ok(user.render(email,score,wordID,Form.form(Words.class)));
