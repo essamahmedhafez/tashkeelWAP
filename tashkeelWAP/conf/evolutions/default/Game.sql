@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 22, 2014 at 05:34 AM
+-- Generation Time: Apr 22, 2014 at 05:16 PM
 -- Server version: 5.5.35
 -- PHP Version: 5.3.10-1ubuntu3.11
 
@@ -59,7 +59,28 @@ CREATE TABLE IF NOT EXISTS `play_evolutions` (
 --
 
 INSERT INTO `play_evolutions` (`id`, `hash`, `applied_at`, `apply_script`, `revert_script`, `state`, `last_problem`) VALUES
-(1, 'af3e1fb8e3dd727c6a842a1bbad466aad96ecda1', '2014-04-22 02:32:57', 'create table digitization (\nsession_num               integer auto_increment not null,\ndigitization              varchar(255),\nword_id                   integer,\nfranco                    varchar(255),\nno_of_signs               integer,\nhinter_id                 integer,\nsolver_id                 integer,\nconstraint pk_digitization primary key (session_num))\n;\n\ncreate table user (\nemail                     varchar(255) not null,\nid                        integer,\nname                      varchar(255),\npassword                  varchar(255),\nscore                     integer,\nconstraint pk_user primary key (email))\n;\n\ncreate table words (\nid                        integer auto_increment not null,\nword                      varchar(255),\nimage_link                varchar(255),\nrepetition_num            integer,\ntashkeel                  varchar(255),\nconstraint pk_words primary key (id))\n;', 'SET FOREIGN_KEY_CHECKS=0;\n\ndrop table digitization;\n\ndrop table user;\n\ndrop table words;\n\nSET FOREIGN_KEY_CHECKS=1;', 'applied', '');
+(1, 'e5ea384f22b6fa2fff6c1fe0d15c2654bdd66da2', '2014-04-22 14:13:53', 'create table digitization (\nsession_num               integer auto_increment not null,\ndigitization              varchar(255),\nword_id                   integer,\nfranco                    varchar(255),\nno_of_signs               integer,\nhinter_id                 integer,\nsolver_id                 integer,\nconstraint pk_digitization primary key (session_num))\n;\n\ncreate table signs (\nsession_num               integer auto_increment not null,\nword_id                   integer,\nhinter_id                 integer,\ndamma                     integer,\nfat7a                     integer,\nkasra                     integer,\nsekon                     integer,\nshadda                    integer,\ntanween_maftoo7           integer,\ntanween_maksoor           integer,\ntanween_madmoom           integer,\nconstraint pk_signs primary key (session_num))\n;\n\ncreate table user (\nemail                     varchar(255) not null,\nid                        integer,\nname                      varchar(255),\npassword                  varchar(255),\nscore                     integer,\nconstraint pk_user primary key (email))\n;\n\ncreate table words (\nid                        integer auto_increment not null,\nword                      varchar(255),\nimage_link                varchar(255),\nrepetition_num            integer,\ntashkeel                  varchar(255),\nconstraint pk_words primary key (id))\n;', 'SET FOREIGN_KEY_CHECKS=0;\n\ndrop table digitization;\n\ndrop table signs;\n\ndrop table user;\n\ndrop table words;\n\nSET FOREIGN_KEY_CHECKS=1;', 'applied', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `signs`
+--
+
+CREATE TABLE IF NOT EXISTS `signs` (
+  `session_num` int(11) NOT NULL AUTO_INCREMENT,
+  `word_id` int(11) DEFAULT NULL,
+  `hinter_id` int(11) DEFAULT NULL,
+  `damma` int(11) DEFAULT NULL,
+  `fat7a` int(11) DEFAULT NULL,
+  `kasra` int(11) DEFAULT NULL,
+  `sekon` int(11) DEFAULT NULL,
+  `shadda` int(11) DEFAULT NULL,
+  `tanween_maftoo7` int(11) DEFAULT NULL,
+  `tanween_maksoor` int(11) DEFAULT NULL,
+  `tanween_madmoom` int(11) DEFAULT NULL,
+  PRIMARY KEY (`session_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

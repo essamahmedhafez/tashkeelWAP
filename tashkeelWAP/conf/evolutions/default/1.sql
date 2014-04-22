@@ -14,6 +14,21 @@ create table digitization (
   constraint pk_digitization primary key (session_num))
 ;
 
+create table signs (
+  session_num               integer auto_increment not null,
+  word_id                   integer,
+  hinter_id                 integer,
+  damma                     integer,
+  fat7a                     integer,
+  kasra                     integer,
+  sekon                     integer,
+  shadda                    integer,
+  tanween_maftoo7           integer,
+  tanween_maksoor           integer,
+  tanween_madmoom           integer,
+  constraint pk_signs primary key (session_num))
+;
+
 create table user (
   email                     varchar(255) not null,
   id                        integer,
@@ -41,6 +56,8 @@ create table words (
 SET FOREIGN_KEY_CHECKS=0;
 
 drop table digitization;
+
+drop table signs;
 
 drop table user;
 
