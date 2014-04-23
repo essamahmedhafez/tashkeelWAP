@@ -35,6 +35,7 @@ create table user (
   name                      varchar(255),
   password                  varchar(255),
   score                     integer,
+  solver                    tinyint(1) default 0,
   constraint pk_user primary key (email))
 ;
 

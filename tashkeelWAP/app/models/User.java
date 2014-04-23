@@ -13,6 +13,8 @@ public class User extends Model{
     public String name;
     public String password;
     public int score;
+    public boolean solver = false;
+    //by default, if solver == false, the user will be solver, and solver will be set to true, so that next turn will be hinter
     
     public User(int id, String email, String name, String password) {
       this.id = id;
@@ -20,6 +22,7 @@ public class User extends Model{
       this.name = name;
       this.password = password;
       this.score = 0;
+      this.solver = false;
     }
 
 
