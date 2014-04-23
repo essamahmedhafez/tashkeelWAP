@@ -15,7 +15,7 @@ GET		/user 					controllers.Application.login()
 
 POST    /user                  controllers.Application.authenticate()
 
-POST	/user/2					controllers.Application.sendFirstHelp(email:String, score:Integer, wordID:Integer)
+POST	/user/1					controllers.Application.sendFirstHelp(email:String, score:Integer, wordID:Integer)
 POST	/user/2					controllers.Application.sendSecondHelp(email:String, score:Integer, wordID:Integer)
 POST	/user/3					controllers.Application.sendThirdHelp(email:String, score:Integer, wordID:Integer)
 
