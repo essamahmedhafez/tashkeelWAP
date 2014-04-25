@@ -12,7 +12,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET     /login                  controllers.Application.login()
 
 GET		/user 					controllers.Application.login()	
-
+GET		/user					controllers.Application.addTashkeel(email:String, score:Integer, word:String,wordID:Integer, 										sessionNum:Integer)
 POST    /user                  controllers.Application.authenticate()
 
 POST	/user/2					controllers.Application.sendFirstHelp(email:String, score:Integer, wordID:Integer)

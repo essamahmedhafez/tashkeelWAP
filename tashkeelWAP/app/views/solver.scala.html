@@ -1,4 +1,4 @@
-@(email: String, score: Integer, word: String)
+@(email: String, score: Integer, word: String,tashkeelForm: Form[Digitization],wordID:Integer, sessionNum:Integer)
 @import helper._
 @main("Solver") {
 <!DOCTYPE html>
@@ -48,6 +48,16 @@
 	<p> @word </p>
     <p></p>
     <br><br>
+	<div class="text-center">
+
+	@helper.form(routes.Application.addTashkeel(email,score,word,wordID,sessionNum)) {
+      <div class="form-group">
+        @helper.inputText(tashkeelForm("digitization"))
+	<input class="btn btn-default" type="submit" value="Submit">
+      </div>
+      }
+
+	</div>
 
   <p> إختر التشكيل المناسب لكل حرف بعد كتابته </p>
 	

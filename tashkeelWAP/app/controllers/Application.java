@@ -57,6 +57,26 @@ List<Words> words = Words.find.all();
     }
 
 
+public static Result addTashkeel(String email, Integer score, String wordHTML, Integer wordID, Integer sessionNum){
+
+  DynamicForm requestData = Form.form().bindFromRequest();
+  if(requestData.hasErrors()){
+    return badRequest();
+   } else{
+      session().clear();
+      String digitalWord = requestData.get("digitization");
+      Words word = Words.find.byId(wordID);
+      Digitization digitizedWord = Digitization.find.byId(sessionNum);
+      digitizedWord.digitization = digitalWord;
+      digitizedWord.save();
+      return ok(solver.render(email,score,wordHTML,Form.form(Digitization.class),wordID,sessionNum));
+
+    }
+
+}
+
+
+
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
   //Form<Login> loginForm = form(Login.class).bindFromRequest();
@@ -65,42 +85,27 @@ public static Result authenticate() {
     } else {
         session().clear();
         session("email", requestData.get("email"));
-
-        String email = requestData.get("email"); 
-        //for testing reasons
-        //this.email = email;    
+        String email = requestData.get("email");     
         String password = requestData.get("password");
         //get user
         User temp = User.find.byId(email);
-
         Integer score = temp.score;
-        //this.score = score;
         //get word
         List<Words> words = Words.find.all();
         int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
         Words word = Words.find.byId(randomImage);
-        //for testing reasons
-        //this.wordStatic = word;
         Integer wordID = word.id;
         if(temp.solver == false){
           temp.solver = true;
         return ok(user.render(email,score,wordID,Form.form(Words.class)));
       }else{
         temp.solver = false;
-        return ok(solver.render(email,score,word.word));
+        return ok(solver.render(email,score,word.word,wordID));
       }
 
     }
 }
-    /*
-    public static Result solver(){
-      List<Words> = allWords = Words.find.all();
-      int randomWordInt = (int) ((Math.random()*100))%(allWords.size());
-      Words wordString = this.wordStatic;
-      String theWord = wordString.word;
-      return ok(views.html.solver.render(this.email,this.score,theWord));
-    }
-*/
+   
     public static Result user(String email, Integer score, Integer wordID) {//int id
     	//User user = User.findById(id);
     	return ok(user.render(email,score,wordID,Form.form(Words.class)));
