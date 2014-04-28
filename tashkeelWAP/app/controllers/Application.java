@@ -67,14 +67,13 @@ public static Result authenticate() {
         session("email", requestData.get("email"));
 
         String email = requestData.get("email"); 
-        //for testing reasons
-        //this.email = email;    
         String password = requestData.get("password");
+        System.out.println(email);
         //get user
         User temp = User.find.byId(email);
-
+        System.out.println(temp);
         Integer score = temp.score;
-        //this.score = score;
+        
         //get word
         List<Words> words = Words.find.all();
         int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
