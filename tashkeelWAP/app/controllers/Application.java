@@ -32,6 +32,41 @@ public class Application extends Controller {
       return ok(login.render(Form.form(Login.class)));
     }
 
+<<<<<<< HEAD
+
+    public static void initializeDB(){
+      if(!init){
+        for(int i=1;i<=55;i++){
+          Words w = new Words (i,"","images/"+i+".jpg");
+          w.save();
+          Digitization d = new Digitization(i,w.id,w.word);
+          d.save();
+          User h = new User(i,i+"@a.com",i+"",i+"");
+          h.save();
+        }
+        init = true;
+       }
+    }
+
+    public static Result addTashkeel(String email, Integer score, String wordHTML, Integer wordID, Integer sessionNum){
+
+      DynamicForm requestData = Form.form().bindFromRequest();
+      if(requestData.hasErrors()){
+      return badRequest();
+      } else{
+      session().clear();
+      String digitalWord = requestData.get("digitization");
+      Words word = Words.find.byId(wordID);
+      Digitization digitizedWord = Digitization.find.byId(sessionNum);
+      digitizedWord.digitization = digitalWord;
+      digitizedWord.save();
+      return ok(solver.render(email,score,wordHTML,Form.form(Digitization.class),wordID,sessionNum));
+      }
+
+    }
+
+
+
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
   //Form<Login> loginForm = form(Login.class).bindFromRequest();
