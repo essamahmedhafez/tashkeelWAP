@@ -67,8 +67,6 @@ public class Application extends Controller {
 
 
 
-=======
->>>>>>> 66dfe872ef2193570af01ec29a2f052f02beb3fc
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
   //Form<Login> loginForm = form(Login.class).bindFromRequest();
