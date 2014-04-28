@@ -32,22 +32,6 @@ public class Application extends Controller {
       return ok(login.render(Form.form(Login.class)));
     }
 
-<<<<<<< HEAD
-
-    public static void initializeDB(){
-      if(!init){
-        for(int i=1;i<=55;i++){
-          Words w = new Words (i,"","images/"+i+".jpg");
-          w.save();
-          Digitization d = new Digitization(i,w.id,w.word);
-          d.save();
-          User h = new User(i,i+"@a.com",i+"",i+"");
-          h.save();
-        }
-        init = true;
-       }
-    }
-
     public static Result addTashkeel(String email, Integer score, String wordHTML, Integer wordID, Integer sessionNum){
 
       DynamicForm requestData = Form.form().bindFromRequest();
