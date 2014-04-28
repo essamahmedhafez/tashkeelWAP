@@ -56,6 +56,24 @@ List<Words> words = Words.find.all();
        }
     }
 
+    public static Result addTashkeel(String email, Integer score, String wordHTML, Integer wordID, Integer sessionNum){
+
+      DynamicForm requestData = Form.form().bindFromRequest();
+      if(requestData.hasErrors()){
+      return badRequest();
+      } else{
+      session().clear();
+      String digitalWord = requestData.get("digitization");
+      Words word = Words.find.byId(wordID);
+      Digitization digitizedWord = Digitization.find.byId(sessionNum);
+      digitizedWord.digitization = digitalWord;
+      digitizedWord.save();
+      return ok(solver.render(email,score,wordHTML,Form.form(Digitization.class),wordID,sessionNum));
+      }
+
+    }
+
+
 
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
