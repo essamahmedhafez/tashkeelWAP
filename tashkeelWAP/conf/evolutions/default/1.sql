@@ -5,33 +5,31 @@
 
 create table digitization (
   session_num               integer auto_increment not null,
-  digitization              varchar(255),
   word_id                   integer,
-  franco                    varchar(255),
-  no_of_signs               integer,
-  hinter_id                 integer,
-  solver_id                 integer,
+  solver_email              varchar(255),
+  digitization              varchar(255),
   constraint pk_digitization primary key (session_num))
 ;
 
 create table signs (
   session_num               integer auto_increment not null,
   word_id                   integer,
-  hinter_id                 integer,
-  damma                     integer,
-  fat7a                     integer,
-  kasra                     integer,
-  sekon                     integer,
-  shadda                    integer,
-  tanween_maftoo7           integer,
-  tanween_maksoor           integer,
-  tanween_madmoom           integer,
+  hinter_email              varchar(255),
+  franco                    varchar(255),
+  no_of_signs               integer,
+  damma                     tinyint(1) default 0,
+  fat7a                     tinyint(1) default 0,
+  kasra                     tinyint(1) default 0,
+  sekon                     tinyint(1) default 0,
+  shadda                    tinyint(1) default 0,
+  tanween_maftoo7           tinyint(1) default 0,
+  tanween_maksoor           tinyint(1) default 0,
+  tanween_madmoom           tinyint(1) default 0,
   constraint pk_signs primary key (session_num))
 ;
 
 create table user (
   email                     varchar(255) not null,
-  id                        integer,
   name                      varchar(255),
   password                  varchar(255),
   score                     integer,

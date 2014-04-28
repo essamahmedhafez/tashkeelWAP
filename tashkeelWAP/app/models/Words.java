@@ -15,8 +15,7 @@ public class Words extends Model{
     public int repetition_num;
     public String tashkeel;
 
-    public Words(int id,String word, String image_link){
-    	this.id = id;
+    public Words(String word, String image_link){
     	this.word = word;
     	this.image_link = image_link;
         this.repetition_num =0;

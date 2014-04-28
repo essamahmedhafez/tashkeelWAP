@@ -66,12 +66,12 @@ public static Result authenticate() {
     }
 }
 
-  public static Result newRound(String email, Integer score) {
+  public static Result newRound(String email, Integer score, Integer wordID) {
         List<Words> words = Words.find.all();
         int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
         Words word = Words.find.byId(randomImage);
-        Integer wordID = word.id;
-        return ok(user.render(email,score,wordID,Form.form(Words.class)));
+        Integer wordID2 = word.id;
+        return ok(user.render(email,score,wordID2,Form.form(Words.class)));
   }
     /*
     public static Result solver(){
@@ -99,68 +99,30 @@ public static Result authenticate() {
       String sekon = requestData.get("sekon");
       String shadda = requestData.get("shadda");
       // if null, not checked, else checked.
-      List<Digitization> digitizations = Digitization.find.all();
-      Object [] d = digitizations.toArray();
-      for(int i=0;i<d.length;i++){
-        Digitization digitization = (Digitization) d[i];
-        if(digitization.wordID == wordID && digitization.hinterID == 0){ //&& sessionno = sessiono
-          //insert 3latool
-          Signs s = new Signs(digitization.sessionNum,wordID,User.find.byId(email).id);
+      Signs s = new Signs(wordID,email);
           if(tanween_maksoor != null){
-            s.tanween_maksoor =1 ;
+            s.tanween_maksoor = true ;
           }
           if(kasra != null){
-            s.kasra =1 ;
+            s.kasra =true ;
           }
           if(tanween_madmoom != null){
-            s.tanween_madmoom =1 ;
+            s.tanween_madmoom =true ;
           }
           if(damma != null){
-            s.damma =1 ;
+            s.damma =true;
           }
           if(tanween_maftoo7 != null){
-            s.tanween_maftoo7 =1 ;
+            s.tanween_maftoo7 =true ;
           }
           if(fat7a != null){
-            s.fat7a =1 ;
+            s.fat7a =true;
           }
           if(sekon != null){
-            s.sekon =1 ;
+            s.sekon =true ;
           }
           if(shadda != null){
-            s.shadda =1 ;
-          }
-          s.save();
-          return ok(user.render(email,score,wordID,Form.form(Words.class)));
-        }
-      }
-      Digitization newDigi = new Digitization(wordID);
-      newDigi.hinterID = User.find.byId(email).id;
-      newDigi.save();
-      Signs s = new Signs(newDigi.sessionNum,wordID,User.find.byId(email).id);
-          if(tanween_maksoor != null){
-            s.tanween_maksoor =1 ;
-          }
-          if(kasra != null){
-            s.kasra =1 ;
-          }
-          if(tanween_madmoom != null){
-            s.tanween_madmoom =1 ;
-          }
-          if(damma != null){
-            s.damma =1 ;
-          }
-          if(tanween_maftoo7 != null){
-            s.tanween_maftoo7 =1 ;
-          }
-          if(fat7a != null){
-            s.fat7a =1 ;
-          }
-          if(sekon != null){
-            s.sekon =1 ;
-          }
-          if(shadda != null){
-            s.shadda =1 ;
+            s.shadda =true ;
           }
           s.save();
       return ok(user.render(email,score,wordID,Form.form(Words.class)));
@@ -169,14 +131,15 @@ public static Result authenticate() {
 	public static Result sendSecondHelp(String email, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
       String nSigns = requestData.get("noOfSigns");
-      List<Digitization> digitizations = Digitization.find.all();
-      Object [] d = digitizations.toArray();
-      System.out.println(d.length + " l");
-       for(int i=0;i<d.length;i++){
-        Digitization digitization = (Digitization) d[i];
-        if(digitization.wordID == wordID && digitization.hinterID == User.find.byId(email).id){
-          digitization.noOfSigns = Integer.parseInt(nSigns);
-          digitization.save();
+      
+      List<Signs> signs = Signs.find.all();
+      Object [] o = signs.toArray();
+       System.out.println(o.length);
+       for(int i=0;i<o.length;i++){
+        Signs s = (Signs) o[i];
+        if(s.word_id == wordID && s.hinter_email.equals(email)){
+          s.noOfSigns = Integer.parseInt(nSigns);
+          s.save();
         }
        }
       return ok(user.render(email,score,wordID,Form.form(Words.class)));
@@ -185,16 +148,16 @@ public static Result authenticate() {
   	public static Result sendThirdHelp(String email, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
       String francoSent = requestData.get("franco");
-      List<Digitization> digitizations = Digitization.find.all();
-      Object [] d = digitizations.toArray();
-       for(int i=0;i<d.length;i++){
-        Digitization digitization = (Digitization) d[i];
-        if(digitization.wordID == wordID && digitization.hinterID == User.find.byId(email).id){
-          digitization.franco = francoSent;
-          digitization.save();
+      List<Signs> signs = Signs.find.all();
+      Object [] o = signs.toArray();
+       for(int i=0;i<o.length;i++){
+        Signs s = (Signs) o[i];
+        if(s.word_id == wordID && s.hinter_email.equals(email)){
+          s.franco = francoSent;
+          s.save();
         }
        }
-       return newRound(email,score);
+       return newRound(email,score,wordID);
       //return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 
