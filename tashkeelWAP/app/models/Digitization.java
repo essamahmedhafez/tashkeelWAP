@@ -14,8 +14,7 @@ public class Digitization extends Model{
     public String solver_email;
     public String digitization;
 
-    public Digitization(int session_num,int word_id, String solver_email, String digitization){
-    	this.session_num = session_num;
+    public Digitization(int word_id, String solver_email, String digitization){
         this.word_id = word_id;
         this.solver_email = solver_email;
     	this.digitization = digitization;
