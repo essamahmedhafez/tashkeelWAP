@@ -11,7 +11,6 @@ public class Digitization extends Model{
     @Id
 	public int sessionNum = 0;
     public String digitization;
-    //@Required
     public int wordID;
     public String franco;
     public int noOfSigns;
@@ -25,6 +24,12 @@ public class Digitization extends Model{
     	// this.franco = franco;
      //    this.noOfSigns = noOfSigns;
     }
+
+    public Digitization(int wordID){
+        this.sessionNum = sessionNum;
+        this.wordID = wordID;
+    }
+
 
        public static Finder<Integer,Digitization> find = new Finder<Integer,Digitization>(Integer.class, Digitization.class); 
 

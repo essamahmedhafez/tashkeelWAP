@@ -2,6 +2,12 @@
 
 @main("User") {
   <body>
+    <script>
+    function undisableBtn2()
+      {
+        document.getElementById("help2").disabled=false;
+      }
+    </script>
 
     <div class="container">
       <div class="header">
@@ -26,8 +32,8 @@
     <img src=" @routes.Assets.at(Words.find.byId(word).image_link)" alt="" class="img-rounded">
 
 		<p>
-        <p><a class="btn btn-lg btn-info" href="#" role="button" data-toggle="modal" data-target="#myModal">ارسل المساعده الأولى </a></p>
-        <p><a class="btn btn-lg btn-warning" href="#" role="button" data-toggle="modal" data-target="#myModal2">ارسل المساعده الثانيه </a></p>
+        <p><a class="btn btn-lg btn-info" href="#" role="button" data-toggle="modal" data-target="#myModal">ارسل المساعده الأولى </a> </p>
+        <p><a class="btn btn-lg btn-warning" href="#" role="button" data-toggle="modal" data-target="#myModal2" id="help2">ارسل المساعده الثانيه </a></p>
         <p><a class="btn btn-lg btn-danger" href="#" role="button" data-toggle="modal" data-target="#myModal3">ارسل المساعده الثالثه </a></p>
 
         <!-- Modal -->
@@ -42,49 +48,49 @@
             <div class="modal-body">
               <h3>إختر العلامات التي سوف يحتاجها</h3>
             <div style="width:100px">
-             @helper.input(helpForm("Checkbox1"), '_label -> "") { (id, name, value, args) =>
+             @helper.input(helpForm("tanween_maksoor"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option1" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel11.jpg")" alt="" class="img-rounded">
                 </label>
               }
-             @helper.input(helpForm("Checkbox2"), '_label -> "") { (id, name, value, args) =>
+             @helper.input(helpForm("kasra"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option2" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel22.jpg")" alt="" class="img-rounded">
                 </label>
               }
-             @helper.input(helpForm("Checkbox3"), '_label -> "") { (id, name, value, args) =>
+             @helper.input(helpForm("tanween_madmoom"), '_label -> "") { (id, name, value, args) =>
               <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option3" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel33.jpg")" alt="" class="img-rounded">
                 </label>
               }
-             @helper.input(helpForm("Checkbox4"), '_label -> "") { (id, name, value, args) =>
+             @helper.input(helpForm("damma"), '_label -> "") { (id, name, value, args) =>
                <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option4" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel44.jpg")" alt="" class="img-rounded">
                 </label>
               }
-             @helper.input(helpForm("Checkbox5"), '_label -> "") { (id, name, value, args) =>
+             @helper.input(helpForm("tanween_maftoo7"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option5" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel55.jpg")" alt="" class="img-rounded">
                 </label>
               }
-             @helper.input(helpForm("Checkbox6"), '_label -> "") { (id, name, value, args) =>
+             @helper.input(helpForm("fat7a"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option6" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel66.jpg")" alt="" class="img-rounded">
                 </label>
               }
-             @helper.input(helpForm("Checkbox7"), '_label -> "") { (id, name, value, args) =>
+             @helper.input(helpForm("sekon"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option7" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel77.jpg")" alt="" class="img-rounded">
                 </label>
               }
-             @helper.input(helpForm("Checkbox8"), '_label -> "") { (id, name, value, args) =>
+             @helper.input(helpForm("shadda"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option8" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel88.png")" alt="" class="img-rounded">
@@ -99,9 +105,10 @@
           </div>
         </div>
       </div>
+      </div>
       }
         @helper.form(action = routes.Application.sendSecondHelp(email,score,word)) {
-            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">

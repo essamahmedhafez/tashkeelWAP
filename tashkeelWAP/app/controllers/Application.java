@@ -24,23 +24,15 @@ public class Application extends Controller {
 
 
   public static Result index() {
-      //return redirect(routes.Application.login());
-
       return ok(login.render(Form.form(Login.class)));
 	}
 
   public static Result login() {
-       //d.save();
-  	   // h.save();
-      //w.save();
-      //initializeDB();
-
-List<Words> words = Words.find.all();
-        
-
+      List<Words> words = Words.find.all();
       return ok(login.render(Form.form(Login.class)));
     }
 
+<<<<<<< HEAD
 
     public static void initializeDB(){
       if(!init){
@@ -77,6 +69,8 @@ public static Result addTashkeel(String email, Integer score, String wordHTML, I
 
 
 
+=======
+>>>>>>> 1c88b459f5ea254dcdc1035db0a66795be4cf214
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
   //Form<Login> loginForm = form(Login.class).bindFromRequest();
@@ -85,11 +79,22 @@ public static Result authenticate() {
     } else {
         session().clear();
         session("email", requestData.get("email"));
+<<<<<<< HEAD
         String email = requestData.get("email");     
         String password = requestData.get("password");
         //get user
         User temp = User.find.byId(email);
         Integer score = temp.score;
+=======
+
+        String email = requestData.get("email"); 
+        String password = requestData.get("password");
+        //get user
+        User temp = User.find.byId(email);
+        System.out.println(temp);
+        Integer score = temp.score;
+        
+>>>>>>> 1c88b459f5ea254dcdc1035db0a66795be4cf214
         //get word
         List<Words> words = Words.find.all();
         int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
@@ -105,7 +110,27 @@ public static Result authenticate() {
 
     }
 }
+<<<<<<< HEAD
    
+=======
+
+  public static Result newRound(String email, Integer score) {
+        List<Words> words = Words.find.all();
+        int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
+        Words word = Words.find.byId(randomImage);
+        Integer wordID = word.id;
+        return ok(user.render(email,score,wordID,Form.form(Words.class)));
+  }
+    /*
+    public static Result solver(){
+      List<Words> = allWords = Words.find.all();
+      int randomWordInt = (int) ((Math.random()*100))%(allWords.size());
+      Words wordString = this.wordStatic;
+      String theWord = wordString.word;
+      return ok(views.html.solver.render(this.email,this.score,theWord));
+    }
+*/
+>>>>>>> 1c88b459f5ea254dcdc1035db0a66795be4cf214
     public static Result user(String email, Integer score, Integer wordID) {//int id
     	//User user = User.findById(id);
     	return ok(user.render(email,score,wordID,Form.form(Words.class)));
@@ -114,34 +139,112 @@ public static Result authenticate() {
 
     public static Result sendFirstHelp(String email, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
-      String checked1 = requestData.get("Checkbox1");
-      String checked2 = requestData.get("Checkbox2");
-      String checked3 = requestData.get("Checkbox3");
-      String checked4 = requestData.get("Checkbox4");
-      String checked5 = requestData.get("Checkbox5");
-      String checked6 = requestData.get("Checkbox6");
-      String checked7 = requestData.get("Checkbox7");
-      String checked8 = requestData.get("Checkbox8");
+      String tanween_maksoor = requestData.get("tanween_maksoor");
+      String kasra = requestData.get("kasra");
+      String tanween_madmoom = requestData.get("tanween_madmoom");
+      String damma = requestData.get("damma");
+      String tanween_maftoo7 = requestData.get("tanween_maftoo7");
+      String fat7a = requestData.get("fat7a");
+      String sekon = requestData.get("sekon");
+      String shadda = requestData.get("shadda");
       // if null, not checked, else checked.
+      List<Digitization> digitizations = Digitization.find.all();
+      Object [] d = digitizations.toArray();
+      for(int i=0;i<d.length;i++){
+        Digitization digitization = (Digitization) d[i];
+        if(digitization.wordID == wordID && digitization.hinterID == 0){ //&& sessionno = sessiono
+          //insert 3latool
+          Signs s = new Signs(digitization.sessionNum,wordID,User.find.byId(email).id);
+          if(tanween_maksoor != null){
+            s.tanween_maksoor =1 ;
+          }
+          if(kasra != null){
+            s.kasra =1 ;
+          }
+          if(tanween_madmoom != null){
+            s.tanween_madmoom =1 ;
+          }
+          if(damma != null){
+            s.damma =1 ;
+          }
+          if(tanween_maftoo7 != null){
+            s.tanween_maftoo7 =1 ;
+          }
+          if(fat7a != null){
+            s.fat7a =1 ;
+          }
+          if(sekon != null){
+            s.sekon =1 ;
+          }
+          if(shadda != null){
+            s.shadda =1 ;
+          }
+          s.save();
+          return ok(user.render(email,score,wordID,Form.form(Words.class)));
+        }
+      }
+      Digitization newDigi = new Digitization(wordID);
+      newDigi.hinterID = User.find.byId(email).id;
+      newDigi.save();
+      Signs s = new Signs(newDigi.sessionNum,wordID,User.find.byId(email).id);
+          if(tanween_maksoor != null){
+            s.tanween_maksoor =1 ;
+          }
+          if(kasra != null){
+            s.kasra =1 ;
+          }
+          if(tanween_madmoom != null){
+            s.tanween_madmoom =1 ;
+          }
+          if(damma != null){
+            s.damma =1 ;
+          }
+          if(tanween_maftoo7 != null){
+            s.tanween_maftoo7 =1 ;
+          }
+          if(fat7a != null){
+            s.fat7a =1 ;
+          }
+          if(sekon != null){
+            s.sekon =1 ;
+          }
+          if(shadda != null){
+            s.shadda =1 ;
+          }
+          s.save();
       return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 
 	public static Result sendSecondHelp(String email, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
       String nSigns = requestData.get("noOfSigns");
-      Digitization digitization = Digitization.find.byId(wordID);
-      digitization.noOfSigns = Integer.parseInt(nSigns);
-      digitization.save();
+      List<Digitization> digitizations = Digitization.find.all();
+      Object [] d = digitizations.toArray();
+      System.out.println(d.length + " l");
+       for(int i=0;i<d.length;i++){
+        Digitization digitization = (Digitization) d[i];
+        if(digitization.wordID == wordID && digitization.hinterID == User.find.byId(email).id){
+          digitization.noOfSigns = Integer.parseInt(nSigns);
+          digitization.save();
+        }
+       }
       return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 
   	public static Result sendThirdHelp(String email, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
       String francoSent = requestData.get("franco");
-      Digitization digitization = Digitization.find.byId(wordID);
-      digitization.franco = francoSent;
-      digitization.save();
-      return ok(user.render(email,score,wordID,Form.form(Words.class)));
+      List<Digitization> digitizations = Digitization.find.all();
+      Object [] d = digitizations.toArray();
+       for(int i=0;i<d.length;i++){
+        Digitization digitization = (Digitization) d[i];
+        if(digitization.wordID == wordID && digitization.hinterID == User.find.byId(email).id){
+          digitization.franco = francoSent;
+          digitization.save();
+        }
+       }
+       return newRound(email,score);
+      //return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 
 public static class Login {
