@@ -64,7 +64,6 @@ public static Result authenticate() {
         String password = requestData.get("password");
         //get user
         User temp = User.find.byId(email);
-        System.out.println(temp);
         Integer score = temp.score;
         
         //get word
@@ -76,10 +75,13 @@ public static Result authenticate() {
         Integer wordID = word.id;
         if(temp.solver == false){
           temp.solver = true;
+          temp.save();
         return ok(user.render(email,score,wordID,Form.form(Words.class)));
       }else{
         temp.solver = false;
-        return ok(solver.render(email,score,word.word));
+        temp.save();
+        //return ok(solver.render(email,score,word.word));
+        return ok(solver.render(email,score,word.word,Form.form(Digitization.class),wordID,0));
       }
 
     }
