@@ -47,6 +47,7 @@
             </div>
             <div class="modal-body">
               <h3>إختر العلامات التي سوف يحتاجها</h3>
+            <div class="checkbox-inline">
             <div style="width:100px">
              @helper.input(helpForm("tanween_maksoor"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
@@ -54,50 +55,69 @@
                 <img src="@routes.Assets.at("images/tashkeel11.jpg")" alt="" class="img-rounded">
                 </label>
               }
+            </div>
+            <div style="width:100px">
              @helper.input(helpForm("kasra"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option2" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel22.jpg")" alt="" class="img-rounded">
                 </label>
               }
+              </div>
+            </div>
+              <div class="checkbox-inline">
+            <div style="width:100px">
              @helper.input(helpForm("tanween_madmoom"), '_label -> "") { (id, name, value, args) =>
               <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option3" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel33.jpg")" alt="" class="img-rounded">
                 </label>
               }
+              </div>
+            <div style="width:100px">
              @helper.input(helpForm("damma"), '_label -> "") { (id, name, value, args) =>
                <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option4" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel44.jpg")" alt="" class="img-rounded">
                 </label>
               }
+              </div>
+            </div>
+            <div class="checkbox-inline">
+              <div style="width:100px">
              @helper.input(helpForm("tanween_maftoo7"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option5" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel55.jpg")" alt="" class="img-rounded">
                 </label>
               }
+              </div>
+            <div style="width:100px">
              @helper.input(helpForm("fat7a"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option6" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel66.jpg")" alt="" class="img-rounded">
                 </label>
               }
+              </div>
+            </div>
+            <div class="checkbox-inline">
+            <div style="width:100px">
              @helper.input(helpForm("sekon"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option7" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel77.jpg")" alt="" class="img-rounded">
                 </label>
               }
+              </div>
+            <div style="width:100px">
              @helper.input(helpForm("shadda"), '_label -> "") { (id, name, value, args) =>
                 <label class="checkbox-inline">
                 <input type="checkbox" class="form-control" value="option8" name="@name" id="@id" @toHtmlArgs(args)>
                 <img src="@routes.Assets.at("images/tashkeel88.png")" alt="" class="img-rounded">
                 </label>
               }
-
-              
+             </div> 
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">Send</button>
