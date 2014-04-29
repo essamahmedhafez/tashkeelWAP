@@ -32,9 +32,9 @@
     <img src=" @routes.Assets.at(Words.find.byId(word).image_link)" alt="" class="img-rounded">
 
 		<p>
-        <p><a class="btn btn-lg btn-info" href="#" role="button" data-toggle="modal" data-target="#myModal">ارسل المساعده الأولى </a> </p>
-        <p><a class="btn btn-lg btn-warning" href="#" role="button" data-toggle="modal" data-target="#myModal2" id="help2">ارسل المساعده الثانيه </a></p>
-        <p><a class="btn btn-lg btn-danger" href="#" role="button" data-toggle="modal" data-target="#myModal3">ارسل المساعده الثالثه </a></p>
+        <p> <span class="badge">+5</span> <a class="btn btn-lg btn-info" href="#" role="button" data-toggle="modal" data-target="#myModal">ارسل المساعده الأولى </a></p>
+        <p> <span class="badge">+10</span> <a class="btn btn-lg btn-warning" href="#" role="button" data-toggle="modal" data-target="#myModal2" id="help2">ارسل المساعده الثانيه </a></p>
+        <p> <span class="badge">+20</span> <a class="btn btn-lg btn-danger" href="#" role="button" data-toggle="modal" data-target="#myModal3">ارسل المساعده الثالثه </a></p>
 
         <!-- Modal -->
       @helper.form(action = routes.Application.sendFirstHelp(email,score,word)) {

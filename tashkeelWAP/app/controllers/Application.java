@@ -146,7 +146,10 @@ public static Result authenticate() {
             s.shadda =true ;
           }
           s.save();
-      return ok(user.render(email,score,wordID,Form.form(Words.class)));
+          User temp = User.find.byId(email);
+          temp.score += 5;
+          temp.save();
+      return ok(user.render(email,temp.score,wordID,Form.form(Words.class)));
     }
 
 	public static Result sendSecondHelp(String email, int score, Integer wordID) {
@@ -163,7 +166,10 @@ public static Result authenticate() {
           s.save();
         }
        }
-      return ok(user.render(email,score,wordID,Form.form(Words.class)));
+          User temp = User.find.byId(email);
+          temp.score += 10;
+          temp.save();
+      return ok(user.render(email,temp.score,wordID,Form.form(Words.class)));
     }
 
   	public static Result sendThirdHelp(String email, int score, Integer wordID) {
@@ -178,7 +184,10 @@ public static Result authenticate() {
           s.save();
         }
        }
-       return newRound(email,score,wordID);
+          User temp = User.find.byId(email);
+          temp.score += 20;
+          temp.save();
+       return newRound(email,temp.score,wordID);
       //return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 
