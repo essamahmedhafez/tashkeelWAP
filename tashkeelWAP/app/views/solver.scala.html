@@ -26,13 +26,13 @@
       <li class="active">
         <a href="#">
           <span class="badge pull-left">@score</span>
-           &nbsp;: عدد النقاط
+           &nbsp;: عَدد النِقاَط
         </a>
       </li>
     </ul>
 
         </ul>
-        <h3 class="text-primary">Solver @(User.find.byId(email).name)
+        <h3 class="text-primary">Solver: @(User.find.byId(email).name)
      </div>
 
       <div class="jumbotron">
@@ -43,23 +43,23 @@
    <!-- <img src=" @routes.Assets.at("images/ImageSample.png")" alt="" class="img-rounded">-->
     
 
- <h2>أكتب الكلمة أو الجملة الآتية </h2>
+ <h2>أكتُب الكَلِمة الآتِية </h2>
 
-  <p> @word </p>
+  <h1 width='100' height='50' style="color:#1E90FF;"> @word </h1>
     <p></p>
     <br><br>
   <div class="text-center">
 
   @helper.form(routes.Application.addTashkeel(email,score,word,wordID,sessionNum)) {
       <div class="form-group">
-        @helper.inputText(tashkeelForm("digitization"))
-  <input class="btn btn-default" type="submit" value="Submit">
+            @helper.inputText(tashkeelForm("digitization"))
+          <input class="btn btn-default" type="submit" value="أَرسِل الإَجابة">
       </div>
-      }
+  }
 
   </div>
 
-  <p> إختر التشكيل المناسب لكل حرف بعد كتابته </p>
+  <p> إِختَر التَشكيل المُناسِب لِكُلِ حَرفَ بَعد كِتابَتُه </p>
 
 
 
@@ -99,7 +99,7 @@
    <br><br>
   
   <form name ="Asking for help form">
-    <input type =button type="button" class="btn btn-primary" value="طلب مساعدة" onclick="count()"></button>
+    <input type =button type="button" class="btn btn-primary" value="طَلبْ مُساعَدة" onclick="count()"></button>
     <br>
     </form>
 

@@ -58,10 +58,10 @@ public static Result authenticate() {
         return badRequest();//login.render(loginForm)
     } else {
         session().clear();
-        session("email", requestData.get("email"));
+        session("email", requestData.get("البَريد الإلِكتروني"));
 
-        String email = requestData.get("email"); 
-        String password = requestData.get("password");
+        String email = requestData.get("البَريد الإلِكتروني"); 
+        String password = requestData.get("كَلِمة السِر");
         //get user
         User temp = User.find.byId(email);
         Integer score = temp.score;
