@@ -32,7 +32,7 @@ public class Application extends Controller {
       return ok(login.render(Form.form(Login.class)));
     }
 
-    public static Result addTashkeel(String email, Integer score, String wordHTML, Integer wordID, Integer sessionNum){
+    public static Result addTashkeel(String email,String username, Integer score, String wordHTML, Integer wordID, Integer sessionNum){
 
       DynamicForm requestData = Form.form().bindFromRequest();
       if(requestData.hasErrors()){
@@ -44,7 +44,7 @@ public class Application extends Controller {
       Digitization digitizedWord = Digitization.find.byId(sessionNum);
       digitizedWord.digitization = digitalWord;
       digitizedWord.save();
-      return ok(solver.render(email,score,wordHTML,Form.form(Digitization.class),wordID,sessionNum));
+      return ok(solver.render(email,username,score,wordHTML,Form.form(Digitization.class),wordID,sessionNum));
       }
 
     }
@@ -65,6 +65,7 @@ public static Result authenticate() {
         //get user
         User temp = User.find.byId(email);
         Integer score = temp.score;
+        String username = temp.username;
         
         //get word
         List<Words> words = Words.find.all();
@@ -76,23 +77,23 @@ public static Result authenticate() {
         if(temp.solver == false){
           temp.solver = true;
           temp.save();
-        return ok(user.render(email,score,wordID,Form.form(Words.class)));
+        return ok(user.render(email,username,score,wordID,Form.form(Words.class)));
       }else{
         temp.solver = false;
         temp.save();
         //return ok(solver.render(email,score,word.word));
-        return ok(solver.render(email,score,word.word,Form.form(Digitization.class),wordID,0));
+        return ok(solver.render(email,username,score,word.word,Form.form(Digitization.class),wordID,0));
       }
 
     }
 }
 
-  public static Result newRound(String email, Integer score, Integer wordID) {
+  public static Result newRound(String email,String username, Integer score, Integer wordID) {
         List<Words> words = Words.find.all();
         int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
         Words word = Words.find.byId(randomImage);
         Integer wordID2 = word.id;
-        return ok(user.render(email,score,wordID2,Form.form(Words.class)));
+        return ok(user.render(email,username,score,wordID2,Form.form(Words.class)));
   }
     /*
     public static Result solver(){
@@ -103,13 +104,13 @@ public static Result authenticate() {
       return ok(views.html.solver.render(this.email,this.score,theWord));
     }
 */
-    public static Result user(String email, Integer score, Integer wordID) {//int id
+    public static Result user(String email, String username,Integer score, Integer wordID) {//int id
     	//User user = User.findById(id);
-    	return ok(user.render(email,score,wordID,Form.form(Words.class)));
+    	return ok(user.render(email,username,score,wordID,Form.form(Words.class)));
   	}
   	
 
-    public static Result sendFirstHelp(String email, int score, Integer wordID) {
+    public static Result sendFirstHelp(String email, String username, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
       String tanween_maksoor = requestData.get("tanween_maksoor");
       String kasra = requestData.get("kasra");
@@ -149,10 +150,10 @@ public static Result authenticate() {
           User temp = User.find.byId(email);
           temp.score += 5;
           temp.save();
-      return ok(user.render(email,temp.score,wordID,Form.form(Words.class)));
+      return ok(user.render(email,username,temp.score,wordID,Form.form(Words.class)));
     }
 
-	public static Result sendSecondHelp(String email, int score, Integer wordID) {
+	public static Result sendSecondHelp(String email, String username, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
       String nSigns = requestData.get("noOfSigns");
       
@@ -169,10 +170,10 @@ public static Result authenticate() {
           User temp = User.find.byId(email);
           temp.score += 10;
           temp.save();
-      return ok(user.render(email,temp.score,wordID,Form.form(Words.class)));
+      return ok(user.render(email,username,temp.score,wordID,Form.form(Words.class)));
     }
 
-  	public static Result sendThirdHelp(String email, int score, Integer wordID) {
+  	public static Result sendThirdHelp(String email,String username, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
       String francoSent = requestData.get("franco");
       List<Signs> signs = Signs.find.all();
@@ -187,7 +188,7 @@ public static Result authenticate() {
           User temp = User.find.byId(email);
           temp.score += 20;
           temp.save();
-       return newRound(email,temp.score,wordID);
+       return newRound(email,username,temp.score,wordID);
       //return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 

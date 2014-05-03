@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`email`, `name`, `password`, `score`) VALUES
+INSERT INTO `user` (`email`, `username`, `password`, `score`) VALUES
 ('a@a.com', 'Menna Bakry', 'a', 0);
 
 -- --------------------------------------------------------

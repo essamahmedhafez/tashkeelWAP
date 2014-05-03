@@ -1,4 +1,4 @@
-@(email: String, score: Integer, word: Integer, helpForm: Form[Words])
+@(email: String,username:String, score: Integer, word: Integer, helpForm: Form[Words])
 
 @main("User") {
   <body>
@@ -23,8 +23,8 @@
 		</ul>
 
         </ul>
-        <h3 class="text-primary">Hinter: @(User.find.byId(email).name)</h3>
-      </div>
+        <h3 class="text-primary">Hinter: @username</h3>
+      </div>000
 
       <div class="jumbotron">
         
@@ -37,7 +37,7 @@
         <p> <span class="badge">+20</span> <a class="btn btn-lg btn-danger" href="#" role="button" data-toggle="modal" data-target="#myModal3">أرسِل المُساعَده الثَالِثه </a></p>
 
         <!-- Modal -->
-      @helper.form(action = routes.Application.sendFirstHelp(email,score,word)) {
+      @helper.form(action = routes.Application.sendFirstHelp(email,username,score,word)) {
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -127,7 +127,7 @@
       </div>
       </div>
       }
-        @helper.form(action = routes.Application.sendSecondHelp(email,score,word)) {
+        @helper.form(action = routes.Application.sendSecondHelp(email,username,score,word)) {
     <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -148,7 +148,7 @@
         </div>
       </div>
     }
-      @helper.form(action = routes.Application.sendThirdHelp(email,score,word)) {
+      @helper.form(action = routes.Application.sendThirdHelp(email,username,score,word)) {
             <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">

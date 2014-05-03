@@ -9,15 +9,15 @@ public class User extends Model{
     
 	 @Id
     public String email;
-    public String name;
+    public String username;
     public String password;
     public int score;
     public boolean solver = false;
     //by default, if solver == false, the user will be solver, and solver will be set to true, so that next turn will be hinter
     
-    public User(String email, String name, String password) {
+    public User(String email, String username, String password) {
       this.email = email;
-      this.name = name;
+      this.username = username;
       this.password = password;
       this.score = 0;
       this.solver = false;
