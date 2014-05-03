@@ -13,9 +13,6 @@ import javax.persistence.*;
 
 public class Application extends Controller {
 
-//static Digitization d = new Digitization(1,2,"menna");	
-//	static User h = new User("a@a.com","a","a");
-  //static Words w = new Words("مدرسه","images/ImageSample.png");
   static boolean init = false;
   static String email = "";
   static Words wordStatic = null;
@@ -30,7 +27,12 @@ public class Application extends Controller {
   public static Result login() {
       List<Words> words = Words.find.all();
       return ok(login.render(Form.form(Login.class)));
-    }
+  }
+
+  public static Result register() {
+      return ok(register.render(Form.form(Register.class)));
+  }
+
 
     public static Result addTashkeel(String email,String username, Integer score, String wordHTML, Integer wordID, Integer sessionNum){
 
@@ -49,12 +51,25 @@ public class Application extends Controller {
 
     }
 
-
+public static Result registration() {
+   DynamicForm requestData = Form.form().bindFromRequest();
+   if (requestData.hasErrors()) {
+        return badRequest();
+   }else {
+        session().clear();
+        String email = requestData.get("البَريد الإلِكتروني"); 
+        String name = requestData.get("الإسم");
+        String password = requestData.get("كَلِمة السِر");
+        String password2 = requestData.get("تأكيد كَلِمة السِر");
+          User newUser = new User(email,name,password);
+          newUser.save();
+        return ok(login.render(Form.form(Login.class)));
+  }
+}
 
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
-  //Form<Login> loginForm = form(Login.class).bindFromRequest();
-   if (requestData.hasErrors()) {
+  if (requestData.hasErrors()) {
         return badRequest();//login.render(loginForm)
     } else {
         session().clear();
@@ -71,8 +86,6 @@ public static Result authenticate() {
         List<Words> words = Words.find.all();
         int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
         Words word = Words.find.byId(randomImage);
-        //for testing reasons
-        //this.wordStatic = word;
         Integer wordID = word.id;
         if(temp.solver == false){
           temp.solver = true;
@@ -81,7 +94,6 @@ public static Result authenticate() {
       }else{
         temp.solver = false;
         temp.save();
-        //return ok(solver.render(email,score,word.word));
         return ok(solver.render(email,username,score,word.word,Form.form(Digitization.class),wordID,0));
       }
 
@@ -104,8 +116,7 @@ public static Result authenticate() {
       return ok(views.html.solver.render(this.email,this.score,theWord));
     }
 */
-    public static Result user(String email, String username,Integer score, Integer wordID) {//int id
-    	//User user = User.findById(id);
+    public static Result user(String email, String username,Integer score, Integer wordID) {
     	return ok(user.render(email,username,score,wordID,Form.form(Words.class)));
   	}
   	
@@ -189,7 +200,6 @@ public static Result authenticate() {
           temp.score += 20;
           temp.save();
        return newRound(email,username,temp.score,wordID);
-      //return ok(user.render(email,score,wordID,Form.form(Words.class)));
     }
 
 public static class Login {
@@ -205,5 +215,17 @@ public static class Login {
   }
 }
 
+
+public static class Register {
+    public String email;
+    public String password;
+   public String validate() {
+    if (User.authenticate(email, password) != null) {
+        return "Already taken user or password";
+    }
+    return null;
+  }
+
 }
 
+}
