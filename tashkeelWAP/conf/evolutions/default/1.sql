@@ -11,6 +11,17 @@ create table digitization (
   constraint pk_digitization primary key (session_num))
 ;
 
+create table round (
+  session_num               integer auto_increment not null,
+  hinter_email              varchar(255),
+  solver_email              varchar(255),
+  hinter_first              tinyint(1) default 0,
+  first_hint_requested      tinyint(1) default 0,
+  second_hint_requested     tinyint(1) default 0,
+  third_hint_requested      tinyint(1) default 0,
+  constraint pk_round primary key (session_num))
+;
+
 create table signs (
   session_num               integer auto_increment not null,
   word_id                   integer,
@@ -33,7 +44,6 @@ create table user (
   username                  varchar(255),
   password                  varchar(255),
   score                     integer,
-  solver                    tinyint(1) default 0,
   constraint pk_user primary key (email))
 ;
 
@@ -54,6 +64,8 @@ create table words (
 SET FOREIGN_KEY_CHECKS=0;
 
 drop table digitization;
+
+drop table round;
 
 drop table signs;
 

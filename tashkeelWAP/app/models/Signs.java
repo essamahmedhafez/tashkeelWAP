@@ -23,7 +23,7 @@ public class Signs extends Model{
     public boolean tanween_maksoor;
     public boolean tanween_madmoom;
 
-    public Signs(int word_id, String hinter_email){
+    public Signs(int session_num, int word_id, String hinter_email){
         this.session_num = session_num;
     	this.word_id = word_id;
         this.hinter_email = hinter_email;
@@ -40,6 +40,5 @@ public class Signs extends Model{
     }
 
        public static Finder<Integer,Signs> find = new Finder<Integer,Signs>(Integer.class, Signs.class); 
-
 
 } 
