@@ -19,6 +19,9 @@ create table round (
   first_hint_requested      tinyint(1) default 0,
   second_hint_requested     tinyint(1) default 0,
   third_hint_requested      tinyint(1) default 0,
+  first_hint_sent           tinyint(1) default 0,
+  second_hint_sent          tinyint(1) default 0,
+  third_hint_sent           tinyint(1) default 0,
   constraint pk_round primary key (session_num))
 ;
 

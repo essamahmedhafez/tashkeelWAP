@@ -152,7 +152,21 @@ public static Result synchronize(String email, String username, Integer score, W
     public static Result user(Integer session_num,String email, String username,Integer score, Integer wordID) {
     	return ok(user.render(session_num, email,username,score,wordID,Form.form(Words.class)));
   	}
-  	
+
+
+  	public static Result checkRequestedHints(Integer session_num){
+      DynamicForm requestData = Form.form().bindFromRequest();
+      Round current_round = Round.find.byId(session_num);
+        if(current_round.third_hint_requested && !current_round.third_hint_sent){
+          return ok("3");
+        }else if(current_round.second_hint_requested && !current_round.second_hint_sent){
+          return ok("2");
+        }else if(current_round.first_hint_requested && !current_round.first_hint_sent){
+          return ok("1");
+        }else{
+          return ok("");
+        }
+    }
 
     public static Result sendFirstHelp(Integer session_num,String email, String username, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
@@ -194,6 +208,10 @@ public static Result synchronize(String email, String username, Integer score, W
           User temp = User.find.byId(email);
           temp.score += 5;
           temp.save();
+
+		Round current_round = Round.find.byId(session_num);
+		current_round.first_hint_sent = true;
+		current_round.save();
       return ok(user.render(session_num, email,username,temp.score,wordID,Form.form(Words.class)));
     }
 
@@ -214,8 +232,14 @@ public static Result synchronize(String email, String username, Integer score, W
           User temp = User.find.byId(email);
           temp.score += 10;
           temp.save();
+
+		Round current_round = Round.find.byId(session_num);
+		current_round.second_hint_sent = true;
+		current_round.save();
+
       return ok(user.render(session_num, email,username,temp.score,wordID,Form.form(Words.class)));
     }
+
 
   	public static Result sendThirdHelp(Integer session_num,String email,String username, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
@@ -232,6 +256,10 @@ public static Result synchronize(String email, String username, Integer score, W
           User temp = User.find.byId(email);
           temp.score += 20;
           temp.save();
+
+        Round current_round = Round.find.byId(session_num);
+		current_round.third_hint_sent = true;
+		current_round.save();
        return newRound(session_num,email,username,temp.score,wordID);
     }
 

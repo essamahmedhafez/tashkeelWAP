@@ -11,21 +11,23 @@ GET     /                           controllers.Application.login()
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET     /register               controllers.Application.register()
-
 GET     /login                  controllers.Application.login()
-
 GET		/user 					controllers.Application.login()	
+
+GET 	/hint 					controllers.Application.checkRequestedHints(session_num:Integer)
 
 POST    /user                  controllers.Application.authenticate()
 POST    /login                  controllers.Application.registration()
 
-POST	/user					controllers.Application.addTashkeel(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
 
+POST	/user					controllers.Application.addTashkeel(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
 POST	/user/hint					controllers.Application.requestHint(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
+
 
 POST	/user/1					controllers.Application.sendFirstHelp(session_num:Integer,email:String,username:String, score:Integer, wordID:Integer)
 POST	/user/2					controllers.Application.sendSecondHelp(session_num:Integer,email:String,username:String, score:Integer, wordID:Integer)
 POST	/user/3					controllers.Application.sendThirdHelp(session_num:Integer,email:String, username:String,score:Integer, wordID:Integer)
+
 
 GET 	/user/1/:email/:score/:wordID 			controllers.Application.newRound(session_num:Integer,email:String,username:String,score:Integer, wordID:Integer)
 GET 	/user/2/:email/:score/:wordID 			controllers.Application.newRound(session_num:Integer,email:String,username:String,score:Integer, wordID:Integer)
