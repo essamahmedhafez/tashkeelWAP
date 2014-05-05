@@ -15,10 +15,13 @@ GET     /register               controllers.Application.register()
 GET     /login                  controllers.Application.login()
 
 GET		/user 					controllers.Application.login()	
-GET		/user					controllers.Application.addTashkeel(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
 
 POST    /user                  controllers.Application.authenticate()
 POST    /login                  controllers.Application.registration()
+
+POST	/user					controllers.Application.addTashkeel(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
+
+POST	/user/hint					controllers.Application.requestHint(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
 
 POST	/user/1					controllers.Application.sendFirstHelp(session_num:Integer,email:String,username:String, score:Integer, wordID:Integer)
 POST	/user/2					controllers.Application.sendSecondHelp(session_num:Integer,email:String,username:String, score:Integer, wordID:Integer)

@@ -1,14 +1,14 @@
 @(session_num:Integer, email: String, username:String, score: Integer, word: Integer, helpForm: Form[Words])
 
 @main("User") {
-  <body>
-    <script>
-    function undisableBtn2()
-      {
-        document.getElementById("help2").disabled=false;
-      }
+<head>
+	<title>Hinter</title>
+     <script type="text/javascript">
     </script>
+   
+</head>
 
+  <body>
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
@@ -33,9 +33,9 @@
     <img src=" @routes.Assets.at(Words.find.byId(word).image_link)" alt="" width='100' height='50' class="img-rounded">
 
 		<p>
-        <p> <span class="badge">+5</span> <a class="btn btn-lg btn-info" href="#" role="button" data-toggle="modal" data-target="#myModal">أرسِل المُساعَده الأُولَى  </a></p>
-        <p> <span class="badge">+10</span> <a class="btn btn-lg btn-warning" href="#" role="button" data-toggle="modal" data-target="#myModal2" id="help2">أرسِل المُساعَده الثَانِيه </a></p>
-        <p> <span class="badge">+20</span> <a class="btn btn-lg btn-danger" href="#" role="button" data-toggle="modal" data-target="#myModal3">أرسِل المُساعَده الثَالِثه </a></p>
+        <p> <span class="badge">+5</span> <a class="btn btn-lg btn-info" href="#" role="button" data-toggle="modal" data-target="#myModal" disabled>أرسِل المُساعَده الأُولَى  </a></p>
+        <p> <span class="badge">+10</span> <a class="btn btn-lg btn-warning" href="#" role="button" data-toggle="modal" data-target="#myModal2" id="help2" disabled>أرسِل المُساعَده الثَانِيه </a></p>
+        <p> <span class="badge">+20</span> <a class="btn btn-lg btn-danger" href="#" role="button" data-toggle="modal" data-target="#myModal3" disabled>أرسِل المُساعَده الثَالِثه </a></p>
 
         <!-- Modal -->
       @helper.form(action = routes.Application.sendFirstHelp(session_num,email,username,score,word)) {

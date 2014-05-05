@@ -31,8 +31,25 @@ public class Application extends Controller {
       return ok(register.render(Form.form(Register.class)));
   }
 
+  public static Result requestHint(Integer session_num, String email,String username, Integer score, String wordHTML, Integer wordID){
+    DynamicForm requestData = Form.form().bindFromRequest();
+      if(requestData.hasErrors()){
+      return badRequest();
+      } else{
+         Round current_round = Round.find.byId(session_num);
+         if(!current_round.first_hint_requested){
+            current_round.first_hint_requested = true;
+         }else if(!current_round.second_hint_requested){
+            current_round.second_hint_requested = true;
+         }else if(!current_round.third_hint_requested){
+            current_round.third_hint_requested = true;
+         }
+         current_round.save();
+        return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID));
+  }
+  }
 
-    public static Result addTashkeel(Integer session_num, String email,String username, Integer score, String wordHTML, Integer wordID){
+public static Result addTashkeel(Integer session_num, String email,String username, Integer score, String wordHTML, Integer wordID){
 
       DynamicForm requestData = Form.form().bindFromRequest();
       if(requestData.hasErrors()){
@@ -90,7 +107,7 @@ public static Result authenticate() {
 }
 
 public static Result synchronize(String email, String username, Integer score, Words word, Integer wordID){
- List<Round> rounds = Round.find.all();
+   List<Round> rounds = Round.find.all();
         if(rounds.size() == 0){
           Round new_round = new Round(email,true);
           new_round.save();

@@ -63,8 +63,6 @@
   <p> إِختَر التَشكيل المُناسِب لِكُلِ حَرفَ بَعد كِتابَتُه </p>
 
 
-
-
   
   <button type="button" class="btn btn-info">
    <img src="@routes.Assets.at("images/tashkeel11.jpg")" alt="" class="img-rounded"> 
@@ -98,12 +96,12 @@
    <img src="@routes.Assets.at("images/tashkeel88.png")" alt="" class="img-rounded"> 
   </button>
    <br><br>
-  
-  <form name ="Asking for help form">
-    <input type =button type="button" class="btn btn-primary" value="طَلبْ مُساعَدة" onclick="count()"></button>
-    <br>
-    </form>
-
+   
+    @helper.form(routes.Application.requestHint(session_num,email,username,score,word,wordID)) {
+      <div class="form-group">
+          <input class="btn btn-primary" type="submit" value="طَلبْ مُساعَدة">
+      </div>
+  }
       <div class="footer">
         <p>&copy; Crowdsourcing Slim 2014</p>
       </div>
