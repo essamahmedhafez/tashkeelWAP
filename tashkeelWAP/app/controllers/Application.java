@@ -168,6 +168,61 @@ public static Result synchronize(String email, String username, Integer score, W
         }
     }
 
+public static Result viewFirstHint(Integer session_num){
+     DynamicForm requestData = Form.form().bindFromRequest();
+     Round current_round = Round.find.byId(session_num);
+     
+      if (current_round.first_hint_sent){
+      String hint = " العلامات الموجودة هى ";
+      Signs sign = Signs.find.byId(session_num);
+      if(sign.damma)
+      hint = "{ ُ }" + hint;
+      if(sign.fat7a)
+      hint = "{ َ }"+ hint;
+      if(sign.kasra)
+      hint = "{ ِ }"+ hint;
+      if(sign.sekon)
+      hint = "{ ْ }"+ hint;
+      if(sign.shadda)
+      hint = "{ ّ }"+ hint;
+      if(sign.tanween_maftoo7)
+      hint = "{ ً }"+ hint;
+      if(sign.tanween_maksoor)
+      hint = "{ ٍ }"+ hint;
+      if(sign.tanween_madmoom)
+      hint = "{ ٌ }"+ hint;
+
+         return ok(hint);
+      }
+      else {
+          return ok("0");
+      }  
+      
+}
+public static Result viewSecondHint(Integer session_num){
+      DynamicForm requestData = Form.form().bindFromRequest();
+     Round current_round = Round.find.byId(session_num);
+       
+      if (current_round.second_hint_sent){
+          Integer noOfSigns = Signs.find.byId(session_num).noOfSigns;
+          return ok(" عدد حروف التشكيل المطلوبة " + noOfSigns);
+      }
+      else {
+          return ok("0");
+      } 
+}
+
+public static Result viewThirdHint(Integer session_num){
+      DynamicForm requestData = Form.form().bindFromRequest();
+     Round current_round = Round.find.byId(session_num);
+      if(current_round.third_hint_sent){
+          String franco = Signs.find.byId(session_num).franco;
+          return ok(franco+" الكلمة بالفرانكو ");
+      }
+      else {
+          return ok("0");
+      }  
+}
     public static Result sendFirstHelp(Integer session_num,String email, String username, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
       String tanween_maksoor = requestData.get("tanween_maksoor");
@@ -239,6 +294,7 @@ public static Result synchronize(String email, String username, Integer score, W
 
       return ok(user.render(session_num, email,username,temp.score,wordID,Form.form(Words.class)));
     }
+
 
 
   	public static Result sendThirdHelp(Integer session_num,String email,String username, int score, Integer wordID) {

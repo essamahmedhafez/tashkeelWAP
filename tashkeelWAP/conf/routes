@@ -15,6 +15,10 @@ GET     /login                  controllers.Application.login()
 GET		/user 					controllers.Application.login()	
 
 GET 	/hint 					controllers.Application.checkRequestedHints(session_num:Integer)
+GET 	/solve1 					controllers.Application.viewFirstHint(session_num:Integer)
+GET 	/solve2 					controllers.Application.viewSecondHint(session_num:Integer)
+GET 	/solve3 					controllers.Application.viewThirdHint(session_num:Integer)
+
 
 POST    /user                  controllers.Application.authenticate()
 POST    /login                  controllers.Application.registration()
