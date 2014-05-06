@@ -24,7 +24,7 @@ POST    /user                  controllers.Application.authenticate()
 POST    /login                  controllers.Application.registration()
 
 
-POST	/user					controllers.Application.addTashkeel(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
+POST	/addTashkeel					controllers.Application.addTashkeel(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
 POST	/user/hint					controllers.Application.requestHint(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
 
 

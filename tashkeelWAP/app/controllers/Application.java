@@ -55,11 +55,9 @@ public static Result addTashkeel(Integer session_num, String email,String userna
       if(requestData.hasErrors()){
       return badRequest();
       } else{
-      session().clear();
       String digitalWord = requestData.get("digitization");
       Words word = Words.find.byId(wordID);
-      Digitization digitizedWord = Digitization.find.byId(session_num);
-      digitizedWord.digitization = digitalWord;
+      Digitization digitizedWord = new Digitization(session_num,wordID, email,digitalWord);
       digitizedWord.save();
       return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID));
       }
