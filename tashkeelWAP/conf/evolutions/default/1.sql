@@ -13,6 +13,7 @@ create table digitization (
 
 create table round (
   session_num               integer auto_increment not null,
+  word_id                   integer,
   hinter_email              varchar(255),
   solver_email              varchar(255),
   hinter_first              tinyint(1) default 0,

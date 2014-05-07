@@ -60,6 +60,21 @@ public static Result addTashkeel(Integer session_num, String email,String userna
       Digitization digitizedWord = new Digitization(session_num,wordID, email,digitalWord);
       digitizedWord.save();
     
+      User player = User.find.byId(email);
+      Round current_round = Round.find.byId(session_num);
+        if(current_round.third_hint_requested){
+          player.score = player.score+5;            
+        }else if(current_round.second_hint_requested){
+         player.score = player.score+10;
+         }else if(current_round.first_hint_requested){
+         player.score = player.score+15;
+         }
+         else {
+            player.score = player.score+20;    
+         }
+         player.save();
+     
+
 		 return ok(index.render("you have finished, make a play again page that shows the score and a play again button that calls authenticate function again to restart the session and get the password of this current user from the database"));
 		  // return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID));
       }
@@ -130,7 +145,7 @@ public static Result authenticate() {
 public static Result synchronize(String email, String username, Integer score, Words word, Integer wordID){
         List<Round> rounds = Round.find.all();
         if(rounds.size() == 0){
-          Round new_round = new Round(email,true);
+          Round new_round = new Round(email,true,wordID);
           new_round.save();
           Integer session_num = new_round.session_num;
           return ok(user.render(session_num, email,username,score,wordID,Form.form(Words.class)));
@@ -141,21 +156,22 @@ public static Result synchronize(String email, String username, Integer score, W
           last_round.solver_email = email;
           last_round.save();
           Integer session_num = last_round.session_num;
-          return ok(solver.render(session_num, email,username,score,word.word,Form.form(Digitization.class),wordID));
+            Words current_word = Words.find.byId(last_round.word_id);
+          return ok(solver.render(session_num, email,username,score,current_word.word,Form.form(Digitization.class),current_word.id));
         }else if(last_round.hinter_email == null){ // this is the second player, his turn is to be a hinter
           last_round.hinter_email = email;
           last_round.save();
           Integer session_num = last_round.session_num;
-          return ok(user.render(session_num, email,username,score,wordID,Form.form(Words.class)));
+          return ok(user.render(session_num, email,username,score,last_round.word_id,Form.form(Words.class)));
         }else { //this is the first player - create a new round
           Round new_round;
           if(last_round.hinter_first) { // this new turn the solver should be first
-            new_round = new Round(email,false);
+            new_round = new Round(email,false,wordID);
             new_round.save();
             Integer session_num = new_round.session_num;
             return ok(solver.render(session_num, email,username,score,word.word,Form.form(Digitization.class),wordID));
           }else { // this new turn the hinter should be first
-            new_round = new Round(email,true);
+            new_round = new Round(email,true,wordID);
             new_round.save();
             Integer session_num = new_round.session_num;
             return ok(user.render(session_num, email,username,score,wordID,Form.form(Words.class)));

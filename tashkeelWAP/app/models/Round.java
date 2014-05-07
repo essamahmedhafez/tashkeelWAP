@@ -10,6 +10,7 @@ public class Round extends Model{
     
     @Id
     public int session_num;
+    public Integer word_id;
     public String hinter_email;
     public String solver_email;
     public boolean hinter_first;
@@ -21,8 +22,9 @@ public class Round extends Model{
     public boolean third_hint_sent;
 
 
-    public Round(String email, boolean hinter_first){
+    public Round(String email, boolean hinter_first, Integer word_id){
         this.hinter_first = hinter_first;
+        this.word_id = word_id;
 
         if(hinter_first){
             this.hinter_email = email;
