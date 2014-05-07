@@ -28,7 +28,7 @@ public class Application extends Controller {
   }
 
   public static Result register() {
-      return ok(register.render(Form.form(Register.class)));
+      return ok(register.render("",Form.form(Register.class)));
   }
 
   public static Result requestHint(Integer session_num, String email,String username, Integer score, String wordHTML, Integer wordID){
@@ -65,17 +65,40 @@ public static Result addTashkeel(Integer session_num, String email,String userna
     }
 
 public static Result registration() {
+
    DynamicForm requestData = Form.form().bindFromRequest();
-   if (requestData.hasErrors()) {
-        return badRequest();
-   }else {
-        session().clear();
+   String status = "";
+
+    if(requestData.field("الإسم").valueOr("").isEmpty()){
+    requestData.reject("الإسم","You cannot have empty name field");
+    status = "Name field is empty";
+  }else{
+
+    if(requestData.field("البَريد الإلِكتروني").valueOr("").isEmpty()){
+    requestData.reject("البَريد الإلِكتروني","You cannot have empty email field");
+    status = "Email field is empty";
+  }
+}
+   if(!requestData.field("كَلِمة السِر").valueOr("").isEmpty()){
+          if(!requestData.field("كَلِمة السِر").valueOr("").equals(requestData.field("تأكيد كَلِمة السِر").value())){
+            requestData.reject("تأكيد كَلِمة السِر","Password doesn't match");
+          }
+          status = "Password doesn't match";
+        }
+
+
+ 
+
+  if(requestData.hasErrors()){
+    return badRequest(register.render(
+      status,Form.form(Register.class)));
+  }else{
         String email = requestData.get("البَريد الإلِكتروني"); 
         String name = requestData.get("الإسم");
         String password = requestData.get("كَلِمة السِر");
         String password2 = requestData.get("تأكيد كَلِمة السِر");
-          User newUser = new User(email,name,password);
-          newUser.save();
+        User newUser = new User(email,name,password);
+        newUser.save();
         return ok(login.render(Form.form(Login.class)));
   }
 }
@@ -212,7 +235,7 @@ public static Result viewSecondHint(Integer session_num){
 
 public static Result viewThirdHint(Integer session_num){
       DynamicForm requestData = Form.form().bindFromRequest();
-     Round current_round = Round.find.byId(session_num);
+      Round current_round = Round.find.byId(session_num);
       if(current_round.third_hint_sent){
           String franco = Signs.find.byId(session_num).franco;
           return ok(franco+" الكلمة بالفرانكو ");
