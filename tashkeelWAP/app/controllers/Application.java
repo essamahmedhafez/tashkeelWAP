@@ -59,7 +59,9 @@ public static Result addTashkeel(Integer session_num, String email,String userna
       Words word = Words.find.byId(wordID);
       Digitization digitizedWord = new Digitization(session_num,wordID, email,digitalWord);
       digitizedWord.save();
-      return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID));
+    
+		 return ok(index.render("you have finished, make a play again page that shows the score and a play again button that calls authenticate function again to restart the session and get the password of this current user from the database"));
+		  // return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID));
       }
 
     }
@@ -337,7 +339,9 @@ public static Result viewThirdHint(Integer session_num){
         Round current_round = Round.find.byId(session_num);
 		current_round.third_hint_sent = true;
 		current_round.save();
-       return newRound(session_num,email,username,temp.score,wordID);
+		 return ok(index.render("you have finished, make a play again page that shows the score and a play again button that calls authenticate function again to restart the session and get the password of this current user from the database"));
+     
+     //  return newRound(session_num,email,username,temp.score,wordID);
     }
 
 public static class Login {
