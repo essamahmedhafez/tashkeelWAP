@@ -49,21 +49,21 @@
         
        
     <br><br>  
-    <!--<img src="word.png" alt="" class="img-rounded">-->
-   <!-- <img src=" @routes.Assets.at("images/ImageSample.png")" alt="" class="img-rounded">-->
-    
+
 
  <h2>أكتُب الكَلِمة الآتِية </h2>
 
   <h1 width='100' height='50' style="color:#1E90FF;"> @word </h1>
     <p></p>
-    <br><br>
   <div class="text-center">
 
   @helper.form(routes.Application.addTashkeel(session_num,email,username,score,word,wordID)) {
       <div class="form-group"> 
-           @helper.inputText(tashkeelForm("digitization"), 'id -> "digitization", 'size -> 30)
+      <div id = digitization>
+           @helper.inputText(tashkeelForm("digitization"), 'id -> "digitization", 'size -> 25,'_label -> null)
+           <br>
            <input class="btn btn-primary" type="submit" value="أَرسِل الإَجابة">
+           </div>
       </div>
   }
 

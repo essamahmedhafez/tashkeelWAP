@@ -89,8 +89,6 @@ public static Result registration() {
         }
 
 
- 
-
   if(requestData.hasErrors()){
     return badRequest(register.render(
       status,Form.form(Register.class)));
@@ -130,7 +128,7 @@ public static Result authenticate() {
 }
 
 public static Result synchronize(String email, String username, Integer score, Words word, Integer wordID){
-   List<Round> rounds = Round.find.all();
+        List<Round> rounds = Round.find.all();
         if(rounds.size() == 0){
           Round new_round = new Round(email,true);
           new_round.save();
