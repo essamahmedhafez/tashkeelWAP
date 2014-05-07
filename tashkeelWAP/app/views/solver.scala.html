@@ -1,4 +1,4 @@
-@(session_num:Integer,email: String, username:String, score: Integer, word: String,tashkeelForm: Form[Digitization],wordID:Integer)
+@(session_num:Integer,email: String, username:String, score: Integer, word: String,tashkeelForm: Form[Digitization],wordID:Integer,status:String)
 @import helper._
 @main("Solver") {
 <!DOCTYPE html>
@@ -59,11 +59,13 @@
 
   @helper.form(routes.Application.addTashkeel(session_num,email,username,score,word,wordID)) {
       <div class="form-group"> 
-      <div id = digitization>
+          <p style="color: #FF0000; text-align:center">
+          @status
+          </p>
            @helper.inputText(tashkeelForm("digitization"), 'id -> "digitization", 'size -> 25,'_label -> null)
            <br>
            <input class="btn btn-primary" type="submit" value="أَرسِل الإَجابة">
-           </div>
+           
       </div>
   }
 

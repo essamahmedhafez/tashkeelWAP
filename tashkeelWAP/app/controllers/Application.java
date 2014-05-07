@@ -19,12 +19,12 @@ public class Application extends Controller {
   static Integer score = 0;
 
   public static Result index() {
-      return ok(login.render(Form.form(Login.class)));
+      return ok(login.render(Form.form(Login.class),""));
 	}
 
   public static Result login() {
       List<Words> words = Words.find.all();
-      return ok(login.render(Form.form(Login.class)));
+      return ok(login.render(Form.form(Login.class),""));
   }
 
   public static Result register() {
@@ -45,15 +45,21 @@ public class Application extends Controller {
             current_round.third_hint_requested = true;
          }
          current_round.save();
-        return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID));
+        return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID,""));
   }
   }
 
 public static Result addTashkeel(Integer session_num, String email,String username, Integer score, String wordHTML, Integer wordID){
 
       DynamicForm requestData = Form.form().bindFromRequest();
+      String status = "";
+      if(requestData.field("digitization").valueOr("").isEmpty()){
+        requestData.reject("digitization","you must insert word in the box");
+        status = "Please insert a word in the text box";
+      }
       if(requestData.hasErrors()){
-      return badRequest();
+      return badRequest(solver.render(session_num,email,username,score,wordHTML,
+        Form.form(Digitization.class),wordID,status));
       } else{
       String digitalWord = requestData.get("digitization");
       Words word = Words.find.byId(wordID);
@@ -114,22 +120,54 @@ public static Result registration() {
         String password2 = requestData.get("تأكيد كَلِمة السِر");
         User newUser = new User(email,name,password);
         newUser.save();
-        return ok(login.render(Form.form(Login.class)));
+        return ok(login.render(Form.form(Login.class),""));
   }
 }
 
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
+  String status = "";
+  boolean emailExist = true;
+
+  if(requestData.field("البَريد الإلِكتروني").valueOr("").isEmpty() || 
+    requestData.field("كَلِمة السِر").valueOr("").isEmpty()){
+    requestData.reject("البَريد الإلِكتروني","Empty email or password");
+    status = "Empty email or password";
+    return badRequest(login.render(Form.form(Login.class),status));
+
+  }
+  
+  String emailForm = requestData.get("البَريد الإلِكتروني"); 
+  String passwordForm = requestData.get("كَلِمة السِر");
+  List<User> users = User.find.all();
+
+  for(int i = 0;i<users.size();i++){
+    if(users.get(i).email.equals(emailForm)){
+      break;
+    }else{
+      emailExist = false;
+    }
+
+  }
+
+  User temp = User.find.byId(email);
+
+  if(!emailExist){
+    status = "This email doesn't exist";
+    requestData.reject("البَريد الإلِكتروني","This email doesn't exist");
+  }else{
+    if(!(temp.password.equals(passwordForm))){
+      status = "Wrong password";
+      requestData.reject("كَلِمة السِر","wrong password");
+    }
+  }
+
   if (requestData.hasErrors()) {
-        return badRequest();//login.render(loginForm)
+        return badRequest(login.render(Form.form(Login.class),status));
     } else {
         session().clear();
         session("email", requestData.get("البَريد الإلِكتروني"));
 
-        String email = requestData.get("البَريد الإلِكتروني"); 
-        String password = requestData.get("كَلِمة السِر");
-        //get user
-        User temp = User.find.byId(email);
         Integer score = temp.score;
         String username = temp.username;
         
@@ -157,7 +195,7 @@ public static Result synchronize(String email, String username, Integer score, W
           last_round.save();
           Integer session_num = last_round.session_num;
             Words current_word = Words.find.byId(last_round.word_id);
-          return ok(solver.render(session_num, email,username,score,current_word.word,Form.form(Digitization.class),current_word.id));
+          return ok(solver.render(session_num, email,username,score,current_word.word,Form.form(Digitization.class),current_word.id,""));
         }else if(last_round.hinter_email == null){ // this is the second player, his turn is to be a hinter
           last_round.hinter_email = email;
           last_round.save();
@@ -169,7 +207,7 @@ public static Result synchronize(String email, String username, Integer score, W
             new_round = new Round(email,false,wordID);
             new_round.save();
             Integer session_num = new_round.session_num;
-            return ok(solver.render(session_num, email,username,score,word.word,Form.form(Digitization.class),wordID));
+            return ok(solver.render(session_num, email,username,score,word.word,Form.form(Digitization.class),wordID,""));
           }else { // this new turn the hinter should be first
             new_round = new Round(email,true,wordID);
             new_round.save();
@@ -313,8 +351,8 @@ public static Result viewThirdHint(Integer session_num){
       
       List<Signs> signs = Signs.find.all();
       Object [] o = signs.toArray();
-       System.out.println(o.length);
-       for(int i=0;i<o.length;i++){
+      System.out.println(o.length);
+      for(int i=0;i<o.length;i++){
         Signs s = (Signs) o[i];
         if(s.word_id == wordID && s.hinter_email.equals(email)){
           s.noOfSigns = Integer.parseInt(nSigns);
@@ -325,10 +363,9 @@ public static Result viewThirdHint(Integer session_num){
           temp.score += 10;
           temp.save();
 
-		Round current_round = Round.find.byId(session_num);
-		current_round.second_hint_sent = true;
-		current_round.save();
-
+		  Round current_round = Round.find.byId(session_num);
+		  current_round.second_hint_sent = true;
+		  current_round.save();
       return ok(user.render(session_num, email,username,temp.score,wordID,Form.form(Words.class)));
     }
 
@@ -351,9 +388,9 @@ public static Result viewThirdHint(Integer session_num){
           temp.save();
 
         Round current_round = Round.find.byId(session_num);
-		current_round.third_hint_sent = true;
-		current_round.save();
-		 return ok(index.render("you have finished, make a play again page that shows the score and a play again button that calls authenticate function again to restart the session and get the password of this current user from the database"));
+		    current_round.third_hint_sent = true;
+		    current_round.save();
+		     return ok(index.render("you have finished, make a play again page that shows the score and a play again button that calls authenticate function again to restart the session and get the password of this current user from the database"));
      
      //  return newRound(session_num,email,username,temp.score,wordID);
     }

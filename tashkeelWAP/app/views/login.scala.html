@@ -1,4 +1,4 @@
-@(form: Form[Application.Login])
+@(form: Form[Application.Login],status:String)
 @main("Login Page"){
 <!DOCTYPE html>
 
@@ -17,6 +17,9 @@
 
     @helper.form(routes.Application.authenticate()) {
       <div class="form-group" style ="text-align: right">
+      <p style = "color:#FF0000;text-align: right">
+      @status
+      </p>
         @helper.inputText(form("البَريد الإلِكتروني"))
       </div>
       <div class="form-group" style ="text-align: right">
