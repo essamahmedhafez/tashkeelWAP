@@ -11,18 +11,21 @@
 	What would you like to do?</h1>
 	</div><br><br>
 
+	
 	<div class="row">
 		 <div class="span4">
 		<div class="col-md-3">
+		@helper.form(routes.Application.login()){
 		<input class="btn btn-default" type="submit" value="Home">
-			
+			}
 		</div>
+		@helper.form(routes.Application.generateNewData(email)){
 		<div class="col-md-3">
 		<input class="btn btn-default" type="submit" value="Play gain">
 		</div>
 		</div>
 
-
+}
 	</div>
 
 
