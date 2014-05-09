@@ -7,26 +7,22 @@
 </head>
 <body>
 	<div class="text-center">
-	<h1 class="text-primary">Your round is now completed,<br>
+	<h1 class="text-primary">Your round is now completed <p style="color: #FF0000">@user</p>
+	<h3 class="text-success"> Your total score: @score</h3><br>
 	What would you like to do?</h1>
+
 	</div><br><br>
 
 	
 	<div class="row">
-		 <div class="span4">
-		<div class="col-md-3">
-		@helper.form(routes.Application.login()){
-		<input class="btn btn-default" type="submit" value="Home">
-			}
-		</div>
+		  <div class="text-center">
 		@helper.form(routes.Application.generateNewData(email)){
-		<div class="col-md-3">
 		<input class="btn btn-default" type="submit" value="Play gain">
 		</div>
 		</div>
 
 }
-	</div>
+	
 
 
 

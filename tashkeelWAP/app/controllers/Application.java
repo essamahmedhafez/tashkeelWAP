@@ -48,22 +48,41 @@ public class Application extends Controller {
         return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID,""));
   }
   }
-  public static Result roundOver(String email,String username,Integer score){
+  public static Result roundOver(Integer session_num,String email,String username,Integer score, 
+    String wordHTML, Integer wordID){
+      if(!addTashkeel(session_num,email,username,score,wordHTML,wordID)){
+        return badRequest(solver.render(session_num,email,username,score,wordHTML,
+        Form.form(Digitization.class),wordID,"Please insert a word in the text box"));
+      }else{
+
+
     return ok(roundOver.render(email,username,score));
   }
+  }
+  public static Result summary(String email,String username,Integer score){
+    return ok(roundOver.render(email,username,score));
+  }
+/*
+  public static Result scorePage(String email){
+    User temp = User.find.byId(email);
+    String name = temp.username;
+    Integer score = temp.score;
+    return ok(roundOver.render(email,name,temp))
+  }
+*/
 
-public static Result addTashkeel(Integer session_num, String email,String username, Integer score, String wordHTML, Integer wordID){
 
+public static boolean addTashkeel(Integer session_num, String email,String username, Integer score, String wordHTML, Integer wordID){
+
+      boolean result = false;
       DynamicForm requestData = Form.form().bindFromRequest();
       String status = "";
       if(requestData.field("digitization").valueOr("").isEmpty()){
         requestData.reject("digitization","you must insert word in the box");
         status = "Please insert a word in the text box";
       }
-      if(requestData.hasErrors()){
-      return badRequest(solver.render(session_num,email,username,score,wordHTML,
-        Form.form(Digitization.class),wordID,status));
-      } else{
+      else{
+        result = true;
       String digitalWord = requestData.get("digitization");
       Words word = Words.find.byId(wordID);
       Digitization digitizedWord = new Digitization(session_num,wordID, email,digitalWord);
@@ -82,12 +101,8 @@ public static Result addTashkeel(Integer session_num, String email,String userna
             player.score = player.score+20;    
          }
          player.save();
-     
-
-		 return ok(roundOver.render(email,username,score));
-		  // return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID));
       }
-
+      return result;
     }
 
 public static Result registration() {

@@ -18,13 +18,16 @@ GET 	/hint 					controllers.Application.checkRequestedHints(session_num:Integer)
 GET 	/solve1 					controllers.Application.viewFirstHint(session_num:Integer)
 GET 	/solve2 					controllers.Application.viewSecondHint(session_num:Integer)
 GET 	/solve3 					controllers.Application.viewThirdHint(session_num:Integer)
+POST	/Summary				     controllers.Application.roundOver(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
+POST 	/NewRound					controllers.Application.generateNewData(email:String)
 
 
 POST    /user                 		controllers.Application.authenticate()
 POST    /register                  controllers.Application.registration()
 
 
-POST	/addTashkeel					controllers.Application.addTashkeel(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
+#POST	/addTashkeel					controllers.Application.addTashkeel(session_num:Integer,email:String,username:String,  
+#  score:Integer, word:String,wordID:Integer)
 POST	/user/hint					controllers.Application.requestHint(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
 
 
