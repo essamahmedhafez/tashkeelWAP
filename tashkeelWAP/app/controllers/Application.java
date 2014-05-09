@@ -48,6 +48,9 @@ public class Application extends Controller {
         return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID,""));
   }
   }
+  public static Result roundOver(String email,String username,Integer score){
+    return ok(roundOver.render(email,username,score));
+  }
 
 public static Result addTashkeel(Integer session_num, String email,String username, Integer score, String wordHTML, Integer wordID){
 
@@ -81,16 +84,16 @@ public static Result addTashkeel(Integer session_num, String email,String userna
          player.save();
      
 
-		 return ok(index.render("you have finished, make a play again page that shows the score and a play again button that calls authenticate function again to restart the session and get the password of this current user from the database"));
+		 return ok(roundOver.render(email,username,score));
 		  // return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID));
       }
 
     }
 
 public static Result registration() {
-
+  String status = "";
    DynamicForm requestData = Form.form().bindFromRequest();
-   String status = "";
+   
 
     if(requestData.field("الإسم").valueOr("").isEmpty()){
     requestData.reject("الإسم","You cannot have empty name field");
@@ -103,10 +106,11 @@ public static Result registration() {
   }
 }
    if(!requestData.field("كَلِمة السِر").valueOr("").isEmpty()){
-          if(!requestData.field("كَلِمة السِر").valueOr("").equals(requestData.field("تأكيد كَلِمة السِر").value())){
+          if(!requestData.get("كَلِمة السِر").equals(requestData.get("تأكيد كَلِمة السِر"))){
             requestData.reject("تأكيد كَلِمة السِر","Password doesn't match");
+            status = "Password doesn't match";
           }
-          status = "Password doesn't match";
+          
         }
 
 
@@ -124,6 +128,18 @@ public static Result registration() {
   }
 }
 
+public static Result generateNewData(String email){
+  User temp = User.find.byId(email);
+  Integer score = temp.score;
+  String username = temp.username;
+  List<Words> words = Words.find.all();
+  int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
+  Words word = Words.find.byId(randomImage);
+  Integer wordID = word.id;
+  return synchronize(email, username, score,word, wordID);
+
+}
+
 public static Result authenticate() {
   DynamicForm requestData = Form.form().bindFromRequest();
   String status = "";
@@ -139,18 +155,8 @@ public static Result authenticate() {
   
   String emailForm = requestData.get("البَريد الإلِكتروني"); 
   String passwordForm = requestData.get("كَلِمة السِر");
+  User temp = User.find.byId(emailForm);
   List<User> users = User.find.all();
-
-  for(int i = 0;i<users.size();i++){
-    if(users.get(i).email.equals(emailForm)){
-      break;
-    }else{
-      emailExist = false;
-    }
-
-  }
-
-  User temp = User.find.byId(email);
 
   if(!emailExist){
     status = "This email doesn't exist";
@@ -167,16 +173,7 @@ public static Result authenticate() {
     } else {
         session().clear();
         session("email", requestData.get("البَريد الإلِكتروني"));
-
-        Integer score = temp.score;
-        String username = temp.username;
-        
-        //get word
-        List<Words> words = Words.find.all();
-        int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
-        Words word = Words.find.byId(randomImage);
-        Integer wordID = word.id;
-        return synchronize(email, username, score,word, wordID);
+        return generateNewData(emailForm);
     }
 }
 
