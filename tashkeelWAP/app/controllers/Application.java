@@ -79,7 +79,6 @@ public static boolean addTashkeel(Integer session_num, String email,String usern
       else{
         result = true;
       String digitalWord = requestData.get("digitization");
-      Words word = Words.find.byId(wordID);
       Digitization digitizedWord = new Digitization(session_num,wordID, email,digitalWord);
       digitizedWord.save();
     
@@ -97,6 +96,21 @@ public static boolean addTashkeel(Integer session_num, String email,String usern
          }
          player.save();
       }
+
+
+       List<Digitization> digitizations = Digitization.find.all();
+      int counter =0;
+      for(int i=0;i< digitizations.size();i++){
+        if(digitizations.get(i).digitization.equals(requestData.get("digitization"))  && digitizations.get(i).word_id == wordID){
+          counter ++;
+        }
+      }
+      Words word = Words.find.byId(wordID);
+      if(word.repetition_num < counter){
+        word.repetition_num = counter;
+        word.tashkeel = requestData.get("digitization");
+      }
+      word.save();
       return result;
     }
 
