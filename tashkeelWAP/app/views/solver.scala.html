@@ -100,7 +100,7 @@
   </button> <br>
 
   <button type="button" class="btn btn-info" onclick="addTashkeel('ْ')">
-   <img src="@routes.Assets.at("images/tashkeel77.jpg")" alt="" class="img-rounded"> 
+  <img src="@routes.Assets.at("images/tashkeel77.jpg")" alt='' class='img-rounded'>
   </button>
 
   <button type="button" class="btn btn-info" onclick="addTashkeel('ّ')">
@@ -117,7 +117,17 @@
 <div class="example-popovers">
 
     <div class="acenter">
-        <button type="button" id = "firstHint" class="btn btn-info" data-toggle="popover" data-placement="left" data-content="" title="المُساعَده الأُولَى">أظهِر المُساعَده الأُولَى</button>
+        <button type="button" id = "firstHint" class="btn btn-info" data-toggle="popover" data-placement="left" data-html = "true" data-content="العلامات الموجودة هى <br/> 
+        <img src='@routes.Assets.at("images/tashkeel11.jpg")' class='img-rounded' style = 'visibility:hidden' id = 'tanween_maksoor'/>
+        <img src='@routes.Assets.at("images/tashkeel22.jpg")' class='img-rounded' style = 'visibility:hidden' id = 'kasra'/> 
+        <img src='@routes.Assets.at("images/tashkeel33.jpg")' class='img-rounded' style = 'visibility:hidden' id = 'tanween_madmoon'/>
+        <img src='@routes.Assets.at("images/tashkeel44.jpg")' class='img-rounded' style = 'visibility:hidden' id = 'damma'/>
+        <img src='@routes.Assets.at("images/tashkeel55.jpg")' class='img-rounded' style = 'visibility:hidden' id = 'tanween_maftoo7'/>
+        <img src='@routes.Assets.at("images/tashkeel66.jpg")' class='img-rounded' style = 'visibility:hidden' id = 'fat7a'/>
+        <img src='@routes.Assets.at("images/tashkeel77.jpg")' class='img-rounded' style = 'visibility:hidden' id = 'sekon'/>
+        <img src='@routes.Assets.at("images/tashkeel88.png")' class='img-rounded' style = 'visibility:hidden' id = 'shadda'/> " 
+
+         title="المُساعَده الأُولَى">أظهِر المُساعَده الأُولَى</button>
     </div>
 
     <div class="acenter">

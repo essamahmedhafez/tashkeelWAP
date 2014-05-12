@@ -70,15 +70,6 @@ public class Application extends Controller {
   public static Result summary(String email,String username,Integer score){
     return ok(roundOver.render(email,username,score));
   }
-/*
-  public static Result scorePage(String email){
-    User temp = User.find.byId(email);
-    String name = temp.username;
-    Integer score = temp.score;
-    return ok(roundOver.render(email,name,temp))
-  }
-*/
-
 
 public static boolean addTashkeel(Integer session_num, String email,String username, Integer score, String wordHTML, Integer wordID){
 
@@ -267,24 +258,24 @@ public static Result viewFirstHint(Integer session_num){
      Round current_round = Round.find.byId(session_num);
      
       if (current_round.first_hint_sent){
-      String hint = " العلامات الموجودة هى ";
+      String hint = "";
       Signs sign = Signs.find.byId(session_num);
       if(sign.damma)
-      hint = "{ ُ }" + hint;
+      hint = "ُ" + hint;
       if(sign.fat7a)
-      hint = "{ َ }"+ hint;
+      hint = "َ"+ hint;
       if(sign.kasra)
-      hint = "{ ِ }"+ hint;
+      hint = "ِ"+ hint;
       if(sign.sekon)
-      hint = "{ ْ }"+ hint;
+      hint = "ْ"+ hint;
       if(sign.shadda)
-      hint = "{ ّ }"+ hint;
+      hint = "ّ"+ hint;
       if(sign.tanween_maftoo7)
-      hint = "{ ً }"+ hint;
+      hint = "ً"+ hint;
       if(sign.tanween_maksoor)
-      hint = "{ ٍ }"+ hint;
+      hint = "ٍ"+ hint;
       if(sign.tanween_madmoom)
-      hint = "{ ٌ }"+ hint;
+      hint = "ٌ"+ hint;
 
          return ok(hint);
       }
