@@ -18,7 +18,8 @@ GET 	/hint 					controllers.Application.checkRequestedHints(session_num:Integer)
 GET 	/solve1 					controllers.Application.viewFirstHint(session_num:Integer)
 GET 	/solve2 					controllers.Application.viewSecondHint(session_num:Integer)
 GET 	/solve3 					controllers.Application.viewThirdHint(session_num:Integer)
-POST	/Summary				     controllers.Application.roundOver(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
+POST	/SummarySolver				     controllers.Application.roundOverSolver(session_num:Integer,email:String,username:String, score:Integer, word:String,wordID:Integer)
+POST	/SummaryHinter				     controllers.Application.roundOverHinter(session_num:Integer,email:String,username:String, score:Integer, wordID:Integer)
 POST 	/NewRound					controllers.Application.generateNewData(email:String)
 
 
@@ -33,7 +34,7 @@ POST	/user/hint					controllers.Application.requestHint(session_num:Integer,emai
 
 POST	/user/1					controllers.Application.sendFirstHelp(session_num:Integer,email:String,username:String, score:Integer, wordID:Integer)
 POST	/user/2					controllers.Application.sendSecondHelp(session_num:Integer,email:String,username:String, score:Integer, wordID:Integer)
-POST	/user/3					controllers.Application.sendThirdHelp(session_num:Integer,email:String, username:String,score:Integer, wordID:Integer)
+
 
 
 GET 	/user/1/:email/:score/:wordID 			controllers.Application.newRound(session_num:Integer,email:String,username:String,score:Integer, wordID:Integer)

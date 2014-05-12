@@ -152,7 +152,8 @@
         </div>
       </div>
     }
-      @helper.form(action = routes.Application.sendThirdHelp(session_num,email,username,score,word)) {
+
+        @helper.form(routes.Application.roundOverHinter(session_num,email,username,score,word)) {
             <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">

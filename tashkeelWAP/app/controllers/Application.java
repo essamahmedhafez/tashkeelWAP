@@ -48,17 +48,25 @@ public class Application extends Controller {
         return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID,""));
   }
   }
-  public static Result roundOver(Integer session_num,String email,String username,Integer score, 
+
+  public static Result roundOverHinter(Integer session_num,String email,String username,Integer score,Integer wordID){
+    if(!sendThirdHelp(session_num,email,username,score,wordID)){
+        return badRequest(user.render(session_num, email,username,score,wordID,Form.form(Words.class)));
+    }else{
+        return ok(roundOver.render(email,username,score));
+    }
+  }
+
+  public static Result roundOverSolver(Integer session_num,String email,String username,Integer score, 
     String wordHTML, Integer wordID){
-      if(!addTashkeel(session_num,email,username,score,wordHTML,wordID)){
-        return badRequest(solver.render(session_num,email,username,score,wordHTML,
-        Form.form(Digitization.class),wordID,"Please insert a word in the text box"));
-      }else{
-
-
-    return ok(roundOver.render(email,username,score));
+    if(!addTashkeel(session_num,email,username,score,wordHTML,wordID)){
+       return badRequest(solver.render(session_num,email,username,score,wordHTML,
+       Form.form(Digitization.class),wordID,"Please insert a word in the text box"));
+    }else{
+      return ok(roundOver.render(email,username,score));
+    }
   }
-  }
+  
   public static Result summary(String email,String username,Integer score){
     return ok(roundOver.render(email,username,score));
   }
@@ -152,7 +160,6 @@ public static Result generateNewData(String email){
   Words word = Words.find.byId(randomImage);
   Integer wordID = word.id;
   return synchronize(email, username, score,word, wordID);
-
 }
 
 public static Result authenticate() {
@@ -383,7 +390,8 @@ public static Result viewThirdHint(Integer session_num){
 
 
 
-  	public static Result sendThirdHelp(Integer session_num,String email,String username, int score, Integer wordID) {
+  	public static boolean sendThirdHelp(Integer session_num,String email,String username, int score, Integer wordID) {
+      boolean result = false;
       DynamicForm requestData = Form.form().bindFromRequest();
       String francoSent = requestData.get("franco");
       List<Signs> signs = Signs.find.all();
@@ -402,10 +410,9 @@ public static Result viewThirdHint(Integer session_num){
         Round current_round = Round.find.byId(session_num);
 		    current_round.third_hint_sent = true;
 		    current_round.save();
-		     return ok(index.render("you have finished, make a play again page that shows the score and a play again button that calls authenticate function again to restart the session and get the password of this current user from the database"));
-     
-     //  return newRound(session_num,email,username,temp.score,wordID);
-    }
+        result = true;
+		     return result;
+  }
 
 public static class Login {
 
