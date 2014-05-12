@@ -32,10 +32,10 @@ public class Application extends Controller {
   }
 
   public static Result requestHint(Integer session_num, String email,String username, Integer score, String wordHTML, Integer wordID){
-    DynamicForm requestData = Form.form().bindFromRequest();
+      DynamicForm requestData = Form.form().bindFromRequest();
       if(requestData.hasErrors()){
-      return badRequest();
-      } else{
+        return badRequest();
+      }else{
          Round current_round = Round.find.byId(session_num);
          if(!current_round.first_hint_requested){
             current_round.first_hint_requested = true;
@@ -46,7 +46,7 @@ public class Application extends Controller {
          }
          current_round.save();
         return ok(solver.render(session_num,email,username,score,wordHTML,Form.form(Digitization.class),wordID,""));
-  }
+      }
   }
 
   public static Result roundOverHinter(Integer session_num,String email,String username,Integer score,Integer wordID){
@@ -67,10 +67,6 @@ public class Application extends Controller {
     }
   }
   
-  public static Result summary(String email,String username,Integer score){
-    return ok(roundOver.render(email,username,score));
-  }
-
 public static boolean addTashkeel(Integer session_num, String email,String username, Integer score, String wordHTML, Integer wordID){
 
       boolean result = false;
@@ -107,30 +103,25 @@ public static boolean addTashkeel(Integer session_num, String email,String usern
 public static Result registration() {
   String status = "";
    DynamicForm requestData = Form.form().bindFromRequest();
-   
 
     if(requestData.field("الإسم").valueOr("").isEmpty()){
     requestData.reject("الإسم","You cannot have empty name field");
     status = "Name field is empty";
-  }else{
+    }else{
 
-    if(requestData.field("البَريد الإلِكتروني").valueOr("").isEmpty()){
-    requestData.reject("البَريد الإلِكتروني","You cannot have empty email field");
-    status = "Email field is empty";
-  }
-}
+      if(requestData.field("البَريد الإلِكتروني").valueOr("").isEmpty()){
+        requestData.reject("البَريد الإلِكتروني","You cannot have empty email field");
+        status = "Email field is empty";
+      }
+    }
    if(!requestData.field("كَلِمة السِر").valueOr("").isEmpty()){
-          if(!requestData.get("كَلِمة السِر").equals(requestData.get("تأكيد كَلِمة السِر"))){
-            requestData.reject("تأكيد كَلِمة السِر","Password doesn't match");
-            status = "Password doesn't match";
-          }
-          
-        }
-
-
+     if(!requestData.get("كَلِمة السِر").equals(requestData.get("تأكيد كَلِمة السِر"))){
+        requestData.reject("تأكيد كَلِمة السِر","Password doesn't match");
+        status = "Password doesn't match";
+      }          
+  }
   if(requestData.hasErrors()){
-    return badRequest(register.render(
-      status,Form.form(Register.class)));
+    return badRequest(register.render(status,Form.form(Register.class)));
   }else{
         String email = requestData.get("البَريد الإلِكتروني"); 
         String name = requestData.get("الإسم");
@@ -226,13 +217,6 @@ public static Result synchronize(String email, String username, Integer score, W
           }
         }
 }
-  public static Result newRound(Integer session_num,String email,String username, Integer score, Integer wordID) {
-        List<Words> words = Words.find.all();
-        int randomImage = (int) ((((Math.random()*100))%(words.size())) + 1);
-        Words word = Words.find.byId(randomImage);
-        Integer wordID2 = word.id;
-        return ok(user.render(session_num, email,username,score,wordID2,Form.form(Words.class)));
-  }
 
     public static Result user(Integer session_num,String email, String username,Integer score, Integer wordID) {
     	return ok(user.render(session_num, email,username,score,wordID,Form.form(Words.class)));
@@ -284,6 +268,7 @@ public static Result viewFirstHint(Integer session_num){
       }  
       
 }
+
 public static Result viewSecondHint(Integer session_num){
       DynamicForm requestData = Form.form().bindFromRequest();
      Round current_round = Round.find.byId(session_num);
@@ -294,7 +279,7 @@ public static Result viewSecondHint(Integer session_num){
       }
       else {
           return ok("0");
-      } 
+     } 
 }
 
 public static Result viewThirdHint(Integer session_num){
@@ -353,7 +338,7 @@ public static Result viewThirdHint(Integer session_num){
 		current_round.first_hint_sent = true;
 		current_round.save();
       return ok(user.render(session_num, email,username,temp.score,wordID,Form.form(Words.class)));
-    }
+  }
 
 	public static Result sendSecondHelp(Integer session_num,String email, String username, int score, Integer wordID) {
       DynamicForm requestData = Form.form().bindFromRequest();
