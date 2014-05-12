@@ -5,31 +5,38 @@
 <head>
 	<title>Round over</title>
 </head>
-<body>
-</br></br>
-	<div class="text-center">
-	<h1 class="text-primary">تَمَت الجولَة <p style="color: #FF0000">@user</p>
-	<h3 class="text-success">النَتِيجة حَتى الَآن: @score</h3><br></h1>
-
-	</div><br>
-
-	
-	<div class="row">
-		  <div class="text-center">
-		@helper.form(routes.Application.generateNewData(email)){
-		<input class="btn btn-default" type="submit" value="اللّعب مَرة أُخرَى">
-		</div>
-		</div>
-
-}
-	
-
-
-
-
+ <body>
+    	<div class="container">
+      		<div class="header">
+        		<ul class="nav nav-pills pull-right">
+        			<ul class="nav nav-pills nav-stacked">
+      					<li class="active">
+        					<a href="#">
+          						<span class="badge pull-left">@score</span>&nbsp;: عَدد النِقاَط
+        					</a>
+      					</li>
+    				</ul>
+        		</ul>
+        		<h3 class="text-primary"> @user</h3>
+         		<h5><a href="@routes.Application.login()">Log Out</a></h5>
+     		</div>
+      		<div class="jumbotron">	</br></br>
+			<div class="text-center">
+				<h1 class="text-primary">تَمَت الجولَة 
+				<h3 class="text-success">النَتِيجة حَتى الَآن: @score</h3><br></h1>
+			</div><br>	
+			<div class="row">
+			  	<div class="text-center">
+					@helper.form(routes.Application.generateNewData(email)){
+					<input class="btn btn-primary" type="submit" value="اللّعب مَرة أُخرَى">
+			  		}
+			  	</div>
+			</div>
+	  </div>
+      <div class="footer">
+        <p>&copy; Crowdsourcing Slim 2014</p>
+      </div>
 </body>
 </html> 
-
-
 
 }
